@@ -1,0 +1,21 @@
+:root {
+    --panelBorderStyle: 1px solid #333;
+    --panelBorderRadius: 5px;
+}
+
+.has-border {
+    border: var(--panelBorderStyle);
+    border-radius: var(--panelBorderRadius);
+}
+
+#rootContainer {
+    border: var(--panelBorderStyle);
+    border-radius: var(--panelBorderRadius);
+    min-height: 500px;
+}
+
+#menuJefeMesa {
+    border: var(--panelBorderStyle);
+    border-radius: var(--panelBorderRadius);
+    min-height: 200px !important;
+}
