@@ -1,0 +1,6 @@
+[2022-06-30T04:46:07.438166-03:00] USER_MODEL.INFO: Class has been instancied. [] []
+[2022-06-30T04:46:07.450600-03:00] USER_MODEL.ERROR: Something went wrong while trying to collect Users data {"exception":"[object] (PDOException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sistema_tiques.tipo_usario' doesn't exist at C:\\xampp\\htdocs\\sistematique\\src\\Mvc\\Models\\User.php:88)"} []
+[2022-06-30T04:46:46.005093-03:00] USER_MODEL.INFO: Class has been instancied. [] []
+[2022-06-30T04:46:46.014467-03:00] USER_MODEL.DEBUG: Something went wrong while trying to collect Users data {"exception":"[object] (PDOException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sistema_tiques.tipo_usario' doesn't exist at C:\\xampp\\htdocs\\sistematique\\src\\Mvc\\Models\\User.php:88)"} []
+[2022-06-30T04:46:53.040566-03:00] USER_MODEL.INFO: Class has been instancied. [] []
+[2022-06-30T04:46:53.049452-03:00] USER_MODEL.DEBUG: Something went wrong while trying to collect Users data {"exception":"[object] (PDOException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'sistema_tiques.tipo_usario' doesn't exist at C:\\xampp\\htdocs\\sistematique\\src\\Mvc\\Models\\User.php:88)"} []
