@@ -1,5 +1,6 @@
 <?php
 
+// TEST FOR THE USER'S API
 require_once __DIR__.'/../../config.php';
 use \PHPUnit\Framework\TestCase;
 use SistemaTique\API\UserController;
@@ -13,7 +14,7 @@ class UserControllerTest extends TestCase
         return json_last_error() === JSON_ERROR_NONE;
     }
 
-    /** @test  */
+
     public function getAll()
     {
         // Create curl resource
@@ -41,4 +42,57 @@ class UserControllerTest extends TestCase
         $this->assertEquals(true, $this->isValidJson($output));
 
     }
+
+
+
+    public function create()
+    {
+
+        $client = curl_init();
+        curl_setopt($client, CURLOPT_URL, BASE_URL."/api/users");
+        curl_setopt($client, CURLOPT_POST, 1);
+        curl_setopt($client, CURLOPT_POSTFIELDS, http_build_query(
+            array(
+                'rut' => '1300100-2',
+                'correo' => 'example@example.com',
+                'nombre' => 'Kay',
+                'apellido' => 'Bauer',
+                'tipo_usuario' => 1,
+                'area' => 1
+            )
+        ));
+
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+        $output = curl_exec($client);
+        $httpcode = curl_getinfo($client, CURLINFO_HTTP_CODE);
+        $contentType = curl_getinfo($client, CURLINFO_CONTENT_TYPE);
+
+        curl_close($client);
+
+        $this->assertEquals(200, $httpcode);
+
+    }
+
+    /** @test */
+    public function updatePATCH()
+    {
+        $logger = \SistemaTique\Helpers\NewLogger::newLogger('API_USER_TEST_PATCH');
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, BASE_URL."/api/users/1");
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($curl, CURLOPT_POSTFIELDS, "nombre=benjamineses");
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+        $response = curl_exec($curl);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        $this->assertEquals( 200 , $httpcode);
+        $logger->debug('Transfer data', array('data'=>$response));
+
+
+    }
+
+
 }

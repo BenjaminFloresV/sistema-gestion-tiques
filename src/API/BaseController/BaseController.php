@@ -2,6 +2,9 @@
 
 namespace SistemaTique\API\BaseController;
 
+use SistemaTique\Helpers\Helpers;
+use SistemaTique\Helpers\NewLogger;
+
 class BaseController
 {
 
@@ -37,12 +40,30 @@ class BaseController
         return parse_str($_SERVER['QUERY_STRING'], $query);
     }
 
-    protected function fixBadUnicode($str) {
-        $str = preg_replace_callback("/\\\\u00([0-9a-f]{2})\\\\u00([0-9a-f]{2})\\\\u00([0-9a-f]{2})\\\\u00([0-9a-f]{2})/mi", fn($m) => chr(hexdec($m[1])).chr(hexdec($m[2])).chr(hexdec($m[3])).chr(hexdec($m[4])), $str);
-        $str = preg_replace_callback("/\\\\u00([0-9a-f]{2})\\\\u00([0-9a-f]{2})\\\\u00([0-9a-f]{2})/mi", fn($m) => chr(hexdec($m[1])).chr(hexdec($m[2])).chr(hexdec($m[3])), $str);
-        $str = preg_replace_callback("/\\\\u00([0-9a-f]{2})\\\\u00([0-9a-f]{2})/mi", fn($m) => chr(hexdec($m[1])).chr(hexdec($m[2])), $str);
-        $str = preg_replace_callback("/\\\\u00([0-9a-f]{2})/i", fn($m) => chr(hexdec($m[1])), $str);
-        return $str;
+
+
+    protected function getPUTdata(): array
+    {
+        $logger = NewLogger::newLogger('HELPERS_GETPUTDATA');
+        $putfp = fopen('php://input', 'r');
+        $putdata = [];
+        while($data = fread($putfp, 1024))
+            // Incov converts string to requested character enconding
+            // $decoded = iconv( 'ISO-8859-1', 'UTF-8', urldecode( $encoded ) );
+            // In this case, when we use iconv produces an unexpected results, so we just use urldecode only
+            $cleanData = urldecode($data);
+            $logger->debug('Actual data recivied', array('data' => $data));
+            $entities = explode('&', $cleanData);
+            if( $entities ) {
+            foreach ($entities as $entity) {
+                $values = explode('=', $entity);
+
+                $putdata[$values[0]] = $values[1] ;
+            }
+        }
+
+        fclose($putfp);
+        return $putdata;
     }
 
 

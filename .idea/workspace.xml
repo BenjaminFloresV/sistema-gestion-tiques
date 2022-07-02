@@ -2,16 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f9eefd0-34d6-4cf8-8358-588d5a694298" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/API/BaseController/BaseController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/API/UserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/API/UserControllerTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/Models/UserTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Helpers/FormVerifier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sistematique.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sistematique.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DEBUG" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/API/BaseController/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/API/BaseController/BaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/API/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/API/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Helpers/Helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helpers/Helpers.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Helpers/NewLogger.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helpers/NewLogger.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Helpers/my_app.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/API/UserControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/test/API/UserControllerTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Models/UserTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/test/Models/UserTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +80,7 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
       <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
       <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/hackzilla/password-generator" />
     </include_path>
   </component>
   <component name="ProjectId" id="2BB8n08vuLzPyE8a09QjtCfMzFv" />
@@ -83,17 +89,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sistematique/public/js&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/xampp/htdocs/sistematique",
+    "list.type.of.created.stylesheet": "CSS",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\sistematique\public\js" />
@@ -120,7 +126,9 @@
       <workItem from="1656522631837" duration="5689000" />
       <workItem from="1656547627619" duration="22954000" />
       <workItem from="1656636282999" duration="16325000" />
-      <workItem from="1656656034899" duration="4776000" />
+      <workItem from="1656656034899" duration="5076000" />
+      <workItem from="1656699528529" duration="16951000" />
+      <workItem from="1656785837646" duration="18580000" />
     </task>
     <servers />
   </component>

@@ -19,7 +19,7 @@ class NewLogger
         $logger = new Logger($name);
         $handlerName = "\Monolog\Handler\\"."$handler";
 
-        $logger->pushHandler(new StreamHandler(__DIR__.'/my_app.log', Level::Debug));
+        $logger->pushHandler(new StreamHandler(__DIR__.'../../../my_app.log', Level::Debug));
         $terminal = new StreamHandler('php://stderr', Level::Debug);
         $logger->pushHandler($terminal);
         $logger->pushHandler(new FirePHPHandler());
