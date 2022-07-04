@@ -60,8 +60,8 @@ class User
             if( isset($data['correo'])) $this->correo = (string) $data['correo'];
             if( isset($data['nombre'])) $this->nombre = (string) $data['nombre'];
             if( isset($data['apellido'])) $this->apellido = (string) $data['apellido'];
-            if( isset($data['tipo_usuario'])) $this->id_tipo = (int) $data['tipo_usuario'];
-            if( isset($data['area'])) $this->id_area = (int) $data['area'];
+            if( isset($data['id_tipo'])) $this->id_tipo = (int) $data['id_tipo'];
+            if( isset($data['id_area'])) $this->id_area = (int) $data['id_area'];
 
             $result = true;
         } catch ( Exception $exception ) {
@@ -196,7 +196,6 @@ class User
             $st->bindValue('expiration_password', $this->expiration_password, PDO::PARAM_STR);
 
             $query = $st->execute();
-            $st->closeCursor();
 
             if( $query ) {
                 $this->log->debug('User has been created successfully');
@@ -204,6 +203,8 @@ class User
             }else {
                 $this->log->warning('Could not create a new User');
             }
+
+            $st->closeCursor();
 
         } catch (Exception $exception) {
             $this->log->error('Something went wrong while trying to insert an new User', array('exception'=>$exception));

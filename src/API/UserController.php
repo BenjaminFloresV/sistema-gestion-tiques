@@ -51,11 +51,11 @@ class UserController extends BaseController
     public function create()
     {
         if( $_SERVER['REQUEST_METHOD'] === 'POST' ){
-            if( isset($_POST) && !empty($_POST) && count($_POST) === 6 ){
+            if( isset($_POST) && !empty($_POST)  ){
                 // Process Request
                 try {
                     $validData = FormVerifier::verifyInputs($_POST);
-                    if( $validData ) {
+                    if( $validData && $this->verifyKeys(array('nombre', 'rut', 'apellido', 'id_tipo', 'id_area', 'correo'), $_POST) ) {
                         $newUser = new User();
                         $newUser->storeFormValues($_POST);
                         $temporalPassword = Helpers::generateRandomPassword();
@@ -93,7 +93,7 @@ class UserController extends BaseController
         if( !isset($strErrorHeader) ) {
             $this->sendOutput($responseData, ['Content-Type: application/json', 'HTTP/1.1 200 OK']);
         }else {
-            $this->sendOutput(json_encode([ 'error' => $strErrorDesc ]), [$strErrorHeader]);
+            $this->sendOutput(json_encode([ 'error' => $strErrorDesc ], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE), [$strErrorHeader]);
         }
         exit();
     }
