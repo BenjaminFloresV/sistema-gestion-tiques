@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f9eefd0-34d6-4cf8-8358-588d5a694298" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Mvc/Controllers/TiqueController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Mvc/Models/Area.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Mvc/Models/Criticidad.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/Models/AreaTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/Models/CriticidadTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mvc/Models/Tique.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/Models/TiqueTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my_app.log" beforeDir="false" afterPath="$PROJECT_DIR$/my_app.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/API/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/API/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Mvc/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/gestion.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/gestion.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/Models/UserTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/test/Models/UserTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +124,7 @@
       <workItem from="1656912460017" duration="8487000" />
       <workItem from="1656966253550" duration="3177000" />
       <workItem from="1656990625107" duration="6923000" />
-      <workItem from="1657041842624" duration="609000" />
+      <workItem from="1657041842624" duration="7733000" />
     </task>
     <servers />
   </component>
