@@ -99,7 +99,7 @@ class User
             $this->log->info('Trying to get user data');
             $wantedData = array(
                 'id_usuario', 'id_tipo', 'id_area', 'login_habilitado', 'nombre',
-                'apellido', 'telefono','correo', 'rut', 'expiration_password'
+                'apellido', 'telefono','correo', 'rut', 'expiration_password', 'password'
             );
             $sql = "SELECT ".implode(",", $wantedData).", UNIX_TIMESTAMP(fecha_nacimiento) AS fechaNacimiento ";
             $sql .= "FROM usuario WHERE rut=:rut";

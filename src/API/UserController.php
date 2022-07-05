@@ -108,7 +108,7 @@ class UserController extends BaseController
 
             try {
 
-                if( $validData && isset($id)) {
+                if( $validData && isset($id) && is_numeric($id)) {
                     $userToBeUpdate = new User();
                     $userToBeUpdate->setId($id);
                     $update = $userToBeUpdate->update($data);

@@ -6,12 +6,9 @@ use \PHPUnit\Framework\TestCase;
 use SistemaTique\Mvc\Models\User;
 
 
-
-
-
 class UserTest extends TestCase
 {
-
+    /** @test  */
     public function getAll()
     {
         // Setup
@@ -51,12 +48,11 @@ class UserTest extends TestCase
 
         );
         $update = $user->update($fakeData);
-
         $this->assertEquals(true, $update);
 
     }
 
-    /** @test  */
+
     public function getOneByRut()
     {
         $user = new User();

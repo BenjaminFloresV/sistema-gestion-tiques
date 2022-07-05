@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f9eefd0-34d6-4cf8-8358-588d5a694298" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Mvc/Models/Client.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/Models/ClientTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mvc/Controllers/TiqueController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mvc/Models/Area.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mvc/Models/Criticidad.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/Models/AreaTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/Models/CriticidadTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my_app.log" beforeDir="false" afterPath="$PROJECT_DIR$/my_app.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/API/BaseController/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/API/BaseController/BaseController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/API/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/API/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mvc/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/gestion.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/gestion.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Models/UserTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/test/Models/UserTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +94,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sistematique&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;web-ide.project.structure&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -121,7 +127,10 @@
       <workItem from="1656656034899" duration="5076000" />
       <workItem from="1656699528529" duration="16951000" />
       <workItem from="1656785837646" duration="21885000" />
-      <workItem from="1656912460017" duration="7422000" />
+      <workItem from="1656912460017" duration="8487000" />
+      <workItem from="1656966253550" duration="3177000" />
+      <workItem from="1656990625107" duration="6923000" />
+      <workItem from="1657041842624" duration="609000" />
     </task>
     <servers />
   </component>

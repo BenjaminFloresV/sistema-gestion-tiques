@@ -2,3 +2,4 @@ frontend/node_modules
 vendor
 config.php
 routes/api.php
+my_app.log
