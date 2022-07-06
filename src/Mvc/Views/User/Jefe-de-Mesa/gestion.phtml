@@ -1,5 +1,8 @@
+<?php
 
-
+/** @var $rolId */
+/** @var $manageView */
+?>
 <h1 class="title is-block">Bienvenido Jefe de Mesa</h1>
 <div class="columns">
     <div class="column pt-0">
@@ -16,13 +19,13 @@
                                 <span class="icon is-small"><i class="fas fa-angle-down" aria-hidden="true"></i></span>
                             </a>
                         </div>
-                        <div class="dropdown-menu has-addons-fullwidth" id="dropdown-menu4" role="menu">
+                        <div class="dropdown-menu has-addons-fullwidth is-100-width" id="dropdown-menu4" role="menu">
                             <div class="dropdown-content">
-                                <a id="usuarios" href="#" class="dropdown-item">
-                                    Crear
+                                <a id="usuarios-1" href="<?=BASE_URL?>/admin-home/usuarios/crear" class="dropdown-item">
+                                    Crear Nuevo
                                 </a>
-                                <a href="#" class="dropdown-item">
-                                    Deshabilitar
+                                <a id="usuarios-2" href="<?=BASE_URL?>/admin-home/usuarios/ver" class="dropdown-item">
+                                    Ver listado
                                 </a>
                             </div>
                         </div>
@@ -37,8 +40,14 @@
     <div id="rootContainer" class="column is-three-quarters has-text-white is-bordered has-background-white">
       <div class="p-4 is-flex is-justify-content-center container" id="root">
 
+          <?php if( isset($manageView) ): ?>
+            <?php require_once __DIR__.'/'.$manageView.'.phtml'; ?>
+          <?php else: ?>
+          <p class="has-text-black">Dashboard papu</p>
+          <?php endif; ?>
+
       </div>
     </div>
 </div>
-<script src="<?=BASE_URL?>/js/app.js"></script>
+<script src="<?=BASE_URL?>/js/jefe-mesa.js"></script>
 

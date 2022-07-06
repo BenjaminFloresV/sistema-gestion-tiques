@@ -23,8 +23,6 @@ class UserController
         }else {
             header("Location:".BASE_URL."/admin-home");
         }
-
-
     }
 
     public function adminHome()

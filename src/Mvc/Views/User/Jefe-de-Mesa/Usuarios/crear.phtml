@@ -1,0 +1,61 @@
+<?php
+/** @var $selectsData */
+/** @var $tiposUsuarios */
+/** @var $tipoAreas */
+
+$tipoAreas = $selectsData['tipoAreas'];
+$tiposUsuarios = $selectsData['tiposUsuarios'];
+
+?>
+<div id="jefe-mesa-usuario-1" class="has-text-black is-full has-background-grey-lighter has-border p-2 is-bordered">
+    <form action="<?=BASE_URL?>/users/create">
+        <div class="field is-grouped">
+            <div class="control">
+                <label class="label is-size-6">RUT</label>
+                <input type="text" class="input" name="rut" />
+            </div>
+            <div class="control">
+                <label class="label is-size-6">Correo</label>
+                <input type="email" class="input" name="correo"/>
+            </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control">
+                <label class="label is-size-6">Nombre</label>
+                <input type="text" class="input" name="nombre"/>
+            </div>
+            <div class="control">
+                <label class="label is-size-6">Apellido</label>
+                <input type="email" class="input" name="apellido"/>
+            </div>
+        </div>
+        <div class="field is-grouped is-center">
+            <div class="control">
+                <label class="label is-size-6">Tipo Usuario</label>
+                <div class="select">
+                    <select class="input" name="tipo_usuario">
+                        <?php foreach ($tiposUsuarios as $tiposUsuario ): ?>
+                            <option value="<?=$tiposUsuario['id_tipo']?>"><?=$tiposUsuario['nombre']?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+            </div>
+            <div class="control">
+                <label class="label is-size-6">Tipo Area</label>
+                <div class="select">
+                    <select class="input" name="tipo_usuario">
+                        <?php foreach ($tipoAreas as $area ): ?>
+                            <option value="<?=$area['id_area']?>"><?=$area['nombre']?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field has-text-centered">
+            <div class="control">
+                <button class="button is-success m-3">Ingresar</button>
+            </div>
+        </div>
+
+    </form>
+</div>

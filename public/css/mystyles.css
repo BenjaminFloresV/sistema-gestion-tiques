@@ -19,3 +19,12 @@
     border-radius: var(--panelBorderRadius);
     min-height: 200px !important;
 }
+
+
+#jefe-mesa-usuario-2 {
+
+}
+
+.is-100-width {
+    width: 100%;
+}

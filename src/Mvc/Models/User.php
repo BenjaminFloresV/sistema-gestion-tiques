@@ -131,7 +131,7 @@ class User
         $result = false;
         try {
 
-            $sql = "SELECT u.id_usuario AS id, tu.nombre AS tipoUsuario, a.nombre AS area, u.login_habilitado AS habilitado, u.nombre, u.apellido, u.telefono";
+            $sql = "SELECT u.id_usuario AS id_usuario,u.id_tipo, tu.nombre AS tipoUsuario, a.nombre AS area,u.id_area, u.login_habilitado AS habilitado, u.nombre, u.apellido, u.telefono";
             $sql .= ",UNIX_TIMESTAMP(u.fecha_nacimiento) AS fechaNacimiento, u.correo, u.rut FROM usuario u";
             $sql .= " INNER JOIN tipo_usuario tu ON u.id_tipo=tu.id_tipo";
             $sql .= " INNER JOIN area a ON u.id_area=a.id_area";

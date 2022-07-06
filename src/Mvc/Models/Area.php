@@ -22,17 +22,17 @@ class Area
         $this->logger = NewLogger::newLogger('AREA_MODEL');
     }
 
-    public function setId_area( int $id )
+    public function setId_area( int $id ): void
     {
         $this->id_area = $id;
     }
 
-    public function setNombre( string $nombre )
+    public function setNombre( string $nombre ): void
     {
         $this->nombre = $nombre;
     }
 
-    public function getAll()
+    public function getAll(): bool|array
     {
         $result = false;
         try {
