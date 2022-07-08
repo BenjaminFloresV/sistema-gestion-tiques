@@ -79,3 +79,15 @@
 #update-action-container {
     display: none;
 }
+
+.has-max-content-width {
+    width: max-content;
+}
+
+.is-absolute {
+    position: absolute;
+}
+
+.radio-text {
+    font-size: 14px;
+}

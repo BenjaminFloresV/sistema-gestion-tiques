@@ -72,7 +72,7 @@ class TiqueTest extends TestCase
 
     }
 
-    /** @test  */
+
     public function deleteTipo()
     {
         $tique = new Tique();
@@ -85,5 +85,28 @@ class TiqueTest extends TestCase
         }
 
         $this->assertEquals(true, $result);
+    }
+
+
+    public function getAll()
+    {
+        $tique = new Tique();
+        $allTique = $tique->getAll();
+
+        $this->assertEquals('array', gettype($allTique));
+    }
+
+    /** @test  */
+    public function getAllFiltered()
+    {
+        $tique = new Tique();
+        $allData = $tique->getAllFiltered([
+            'fecha' => '2022-07-08',
+            'id_criticidad' => '1',
+            'id_area' => 2
+        ]);
+
+        $this->assertEquals('array', gettype($allData));
+        $this->assertCount(3, $allData);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace SistemaTique\Mvc\Controllers;
 
+use SistemaTique\Helpers\FormVerifier;
 use SistemaTique\Helpers\Helpers;
 use SistemaTique\Middleware\RenderView;
 use SistemaTique\Mvc\Models\Area;
@@ -68,7 +69,7 @@ class JefeMesaController
 
     }
 
-    public function manageTiposTique( string $action = null )
+    public function manageTiposTique( string $action = null ): void
     {
         $action = Helpers::verifyAction($action);
 
@@ -82,6 +83,38 @@ class JefeMesaController
         );
 
 
+    }
+
+    public function manageTiques( string $action = null ): void
+    {
+        $action = Helpers::verifyAction($action);
+        if( isset($_GET) && !empty($_GET) && FormVerifier::verifyPossibleKeys(['fecha', 'id_criticidad', 'id_tipo', 'id_area', 'rut_usuario_crea', 'rut_usuario_cierra'], $_GET) && FormVerifier::verifyInputs($_GET)) {
+
+            $tique = new Tique();
+            $data = $tique->getAllFiltered($_GET);
+
+
+        }else {
+            $data = Helpers::retrieveObjectData($action, [new Tique(), 'getAll']);
+        }
+
+
+        $selectsData = Helpers::retrieveSelectsData(
+            [
+                [new Tique(), 'getTiqueTypes', 'tiposTique'],
+                [new Area(), 'getAll', 'tipoAreas'],
+                [new Criticidad(), 'getAll', 'criticidades']
+            ]
+        );
+
+
+        RenderView::render('admin-panel',
+            [
+                'manageView' => 'Tiques/'.$action,
+                'selectsData' => $selectsData,
+                'data' => $data
+            ]
+        );
     }
 
 

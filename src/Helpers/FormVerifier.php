@@ -64,4 +64,17 @@ class FormVerifier
         return $result;
     }
 
+    public static function verifyPossibleKeys( array $keys, $data ):bool
+    {
+        $result = false;
+        foreach ( $keys as $key ){
+            if( array_key_exists($key, $data) ){
+                $result = true;
+            }
+        }
+
+        return $result;
+
+    }
+
 }

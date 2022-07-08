@@ -45,4 +45,63 @@ document.addEventListener('DOMContentLoaded', () => {
             closeAllModals();
         }
     });
+
+
+    // DROPDOWNS CODE WITH CLICK EVENT
+    function openDropdown($el) {
+        if( $el.classList.contains('is-active') ){
+            closeModal($el);
+        }else {
+            openModal($el);
+        }
+    }
+
+    // Add a click evento on buttons to open specific dropdown
+    ( document.querySelectorAll('.js-dropdown-trigger') || [] ).forEach( ( $trigger ) => {
+        const dropdown = $trigger.dataset.target;
+        const target = document.getElementById(dropdown);
+
+        $trigger.addEventListener('click', function (e){
+           e.preventDefault();
+           openDropdown(target);
+        });
+    });
+
+
+    // CHECKBOXES TO ALLOW OR DISALLOW FORM'S INPUT NAMES
+    ( document.querySelectorAll('.checks-for-name') || [] ).forEach(( $trigger ) => {
+       const input = $trigger.dataset.target;
+       const target = document.getElementById(input);
+       const name = $trigger.dataset.name;
+
+       $trigger.addEventListener('change', () => {
+
+           if( $trigger.getAttribute('name') === 'aux-radio-name' ) {
+               target.disabled = false;
+               if( !target.hasAttribute('name') && name !== 'disabled' ) {
+                   target.setAttribute('name',name);
+                   target.setAttribute('required', 'required');
+               }else {
+                   if( $trigger.dataset.name === 'disabled' ) {
+                       target.removeAttribute('name');
+                       target.disabled = true;
+                   }else {
+                       target.setAttribute('name',name);
+                       target.setAttribute('required', 'required');
+                   }
+
+               }
+           }else {
+               if( !target.hasAttribute('name') ) {
+                   target.setAttribute('name',name);
+                   target.setAttribute('required', 'required');
+               }else {
+                   target.removeAttribute('name');
+               }
+           }
+
+       });
+
+    });
+
 });

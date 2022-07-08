@@ -44,6 +44,8 @@ SimpleRouter::post('/tipos-tique/crear', [\SistemaTique\Mvc\Controllers\TiqueCon
 SimpleRouter::post('/tipos-tique/actualizar', [\SistemaTique\Mvc\Controllers\TiqueController::class, 'updateTipo']);
 SimpleRouter::get('/tipos-tique/eliminar/{id}', [\SistemaTique\Mvc\Controllers\TiqueController::class, 'deleteTipo']);
 
+// Tiques
+SimpleRouter::get('/admin-home/tiques/', [\SistemaTique\Mvc\Controllers\JefeMesaController::class, 'manageTiques']);
 
 SimpleRouter::error(function (Request $request, \Exception $exception){
 

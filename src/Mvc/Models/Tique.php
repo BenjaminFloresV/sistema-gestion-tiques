@@ -76,6 +76,49 @@ class Tique
 
     }
 
+
+    public function getAll(): bool|array
+    {
+        $result = false;
+        try {
+            $this->logger->debug('Trying to get all Tiques');
+            $sql = "SELECT CONCAT(u.nombre,' ',u.apellido) AS nombre_creador, t.fecha_creacion, tt.nombre AS nombre_ttique, \n"
+
+                . "c.nombre AS nombre_criticidad, a.nombre AS nombre_area, et.nombre AS nombre_etique \n"
+
+                . "FROM `tique` t \n"
+
+                . "LEFT JOIN usuario u ON t.id_usuario_crea=u.id_usuario\n"
+
+                . "LEFT JOIN tipo_tique tt ON t.id_tipo=tt.id_tipo\n"
+
+                . "LEFT JOIN criticidad c ON t.id_criticidad=c.id_criticidad\n"
+
+                . "LEFT JOIN area a ON t.id_area=a.id_area\n"
+
+                . "LEFT JOIN estado_tique et ON t.id_estado=et.id_estado\n"
+
+                . "WHERE t.id_usuario_cierra IS NULL OR t.id_usuario_cierra IS NOT NULL;";
+            $st = $this->conn->prepare($sql);
+
+            $query = $st->execute();
+
+            if( $query ) {
+                $this->logger->debug('Tiques data has been collected');
+                $result = $st->fetchAll(PDO::FETCH_ASSOC);
+            }else {
+                $this->logger->debug('Get all Tiques query has failed');
+            }
+
+            $st->closeCursor();
+
+        } catch (\Exception $exception) {
+            $this->logger->error('Something went wrong while trying to collect all Tiques data', array('exception' => $exception));
+        }
+
+        return $result;
+    }
+
     public function create(): bool
     {
         $availableIntFields = ['id_usuario_crea', 'id_tipo', 'id_area', 'id_criticidad'];
@@ -247,6 +290,105 @@ class Tique
         }
 
         return $result;
+    }
+
+    public function getAllFiltered(array $data)
+    {
+        $let = ['fecha', 'id_criticidad', 'id_tipo', 'id_area', 'rut_usuario_crea', 'rut_usuario_cierra'];
+
+        $result = false;
+
+        try {
+            $this->logger->debug('Trying to get tique filtered data');
+            $sql = $this->getSQLForGetAll();
+
+            if( isset($data['fecha']) ) $fecha = $data['fecha'];
+            if( isset($data['id_criticidad']) ) $idCriticidad = $data['id_criticidad'];
+            if( isset($data['id_tipo']) ) $idTipoTique = $data['id_tipo'];
+            if( isset($data['id_area']) ) $idArea = $data['id_area'];
+            if( isset($data['rut_usuario_crea']) ) $rutUserCrea = $data['rut_usuario_crea'];
+            if( isset($data['rut_usuario_cierra']) ) $rutUserCierra = $data['rut_usuario_cierra'];
+
+
+            $conditions = array();
+
+            if( !empty($fecha) ) {
+                $fecha = $this->conn->quote($fecha);
+                $conditions[] = "t.fecha_creacion={$fecha}";
+            }
+
+            if( !empty($idCriticidad) ) {
+                $idCriticidad = $this->conn->quote($idCriticidad);
+                $conditions[] = "t.id_criticidad={$idCriticidad}";
+            }
+
+            if( !empty($idTipoTique) ) {
+                $idTipoTique = $this->conn->quote($idTipoTique);
+                $conditions[] = "t.id_tipo={$idTipoTique}";
+            }
+
+            if( !empty($idArea) ){
+                $idArea = $this->conn->quote($idArea);
+                $conditions[] = "t.id_area={$idArea}";
+            }
+
+            if( !empty($rutUserCierra) ) {
+                $user = new User();
+                $user->setRut($rutUserCierra);
+                $user = $user->getOneByRut();
+
+                $idUserCierra = $this->conn->quote($user->id_usuario);
+                $conditions[] = "t.id_usuario_cierra={$idUserCierra}";
+            } else if( !empty($rutUserCrea) ) {
+                $user = new User();
+                $user->setRut($rutUserCrea);
+                $user = $user->getOneByRut();
+
+                $idUserCrea = $this->conn->quote($user->id_usuario);
+                $conditions[] = "t.id_usuario_crea={$idUserCrea}";
+            }
+
+
+            if( count( $conditions ) > 0 ) $sql .= " WHERE ".implode(' AND ', $conditions);
+            $sql .= " AND ( t.id_usuario_cierra IS NULL OR t.id_usuario_cierra IS NOT NULL)";
+
+            $st = $this->conn->prepare($sql);
+
+            $query = $st->execute();
+
+            if( $query ) {
+                $result = $st->fetchAll(PDO::FETCH_ASSOC);
+                $this->logger->debug('Tique data filtered was collected successfullly');
+            }else {
+                $this->logger->debug('Query has failed');
+            }
+
+
+        } catch (\Exception $exception){
+            $this->logger->error('Something went wrong while trying to get filtered tique data', array('exception' => $exception));
+        }
+
+        return $result;
+
+    }
+
+    private function getSQLForGetAll()
+    {
+        return "SELECT CONCAT(u.nombre,' ',u.apellido) AS nombre_creador, t.fecha_creacion, tt.nombre AS nombre_ttique, \n"
+
+            . "c.nombre AS nombre_criticidad, a.nombre AS nombre_area, et.nombre AS nombre_etique \n"
+
+            . "FROM `tique` t \n"
+
+            . "LEFT JOIN usuario u ON t.id_usuario_crea=u.id_usuario\n"
+
+            . "LEFT JOIN tipo_tique tt ON t.id_tipo=tt.id_tipo\n"
+
+            . "LEFT JOIN criticidad c ON t.id_criticidad=c.id_criticidad\n"
+
+            . "LEFT JOIN area a ON t.id_area=a.id_area\n"
+
+            . "LEFT JOIN estado_tique et ON t.id_estado=et.id_estado\n";
     }
 
 
