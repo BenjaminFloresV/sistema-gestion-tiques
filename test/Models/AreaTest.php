@@ -7,7 +7,7 @@ use SistemaTique\Mvc\Models\Area;
 
 class AreaTest extends TestCase
 {
-    /** @test */
+
     public function getAll()
     {
         $area = new Area();
@@ -17,11 +17,15 @@ class AreaTest extends TestCase
         $this->assertEquals(true, count($areas) > 0);
     }
 
+
     public function create()
     {
+        $logger = \SistemaTique\Helpers\NewLogger::newLogger('AREA_MODEL_TEST');
         $area = new Area();
         $area->setNombre('Bases de Datos');
         $create = $area->create();
+
+        $logger->debug('Query result', array('result' => $create));
 
         $this->assertEquals(true, $create);
     }
@@ -34,6 +38,30 @@ class AreaTest extends TestCase
 
         $update = $area->update();
 
+
         $this->assertEquals(true, $update);
+    }
+
+
+
+    public function isInUse()
+    {
+        $area = new Area();
+        $area->setId_area(11);
+        $checkUsage = $area->idInUse();
+
+        $this->assertEquals(true, $checkUsage);
+
+    }
+
+    /** @test */
+    public function delete()
+    {
+        $area = new Area();
+        $area->setId_area(1);
+
+        $delete = $area->delete();
+
+        $this->assertEquals(true, $delete);
     }
 }

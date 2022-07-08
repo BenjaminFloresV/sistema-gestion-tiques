@@ -108,4 +108,21 @@ class Helpers
         return $result;
 
     }
+
+    public static function isAdmin(int $userType):void
+    {
+        if( !isset($_SESSION['user']) && $_SESSION['user'] === $userType){
+            header('Location:'.BASE_URL.'/admin-home');
+            exit();
+        }
+    }
+
+    public static function removeSession( string $name )
+    {
+        if(isset($_SESSION[$name])){
+            $_SESSION[$name] = null;
+            unset($_SESSION[$name]);
+        }
+    }
+
 }

@@ -50,4 +50,18 @@ class FormVerifier
         return $result;
     }
 
+
+    public static function verifyKeys( array $expectedKeys, $data ): bool
+    {
+        $result = true;
+        foreach ( $expectedKeys as $key ){
+            if( !array_key_exists($key, $data) ){
+                $result = false;
+                break;
+            }
+        }
+
+        return $result;
+    }
+
 }

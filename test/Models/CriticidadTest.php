@@ -32,7 +32,7 @@ class CriticidadTest extends TestCase
         $this->assertEquals( true, $create );
     }
 
-    /** @test */
+
     public function update()
     {
         $criticidad = new Criticidad();
@@ -43,6 +43,17 @@ class CriticidadTest extends TestCase
         $update = $criticidad->update();
 
         $this->assertEquals(true, $update);
+    }
+
+    /** @test */
+    public function verifyUsage()
+    {
+        $criticidad = new Criticidad();
+        $criticidad->setIdCriticidad(1);
+        $verification = $criticidad->idInUse();
+
+        $this->assertEquals(false, $verification);
+        //$this->assertEquals(true, $verification);
     }
 
 }

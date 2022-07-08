@@ -1,26 +1,27 @@
 
-
-<section class="section">
-    <div class="container">
-        <form class="" method="POST" action="<?=BASE_URL?>/admins-login">
-
-            <div class="field">
-                <label class="label">Rut</label>
-                <div class="control">
-                    <input class="input" type="text" name="rut">
+<?php require_once __DIR__.'/modal-login.phtml'?>
+<section class="section is-flex is-vcentered is-100v-height">
+    <div class="container is-align-self-center is-justify-content-center">
+        <div class="special-shadow-div p-3 is-450-width m-auto">
+            <form class="" method="POST" action="<?=BASE_URL?>/admins-login">
+                <div class="field">
+                    <label class="label">Rut</label>
+                    <div class="control">
+                        <input class="input" type="text" name="rut">
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Contraseña</label>
-                <div class="control">
-                    <input class="input" type="password" name="password">
+                <div class="field">
+                    <label class="label">Contraseña</label>
+                    <div class="control">
+                        <input class="input" type="password" name="password">
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <input class="button" type="submit" value="Ingresar">
-            </div>
-        </form>
+                <div class="field">
+                    <input class="button is-success" type="submit" value="Ingresar">
+                </div>
+            </form>
+        </div>
     </div>
 </section>

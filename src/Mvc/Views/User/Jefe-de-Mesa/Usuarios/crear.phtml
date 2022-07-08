@@ -7,33 +7,33 @@ $tipoAreas = $selectsData['tipoAreas'];
 $tiposUsuarios = $selectsData['tiposUsuarios'];
 
 ?>
-<div id="jefe-mesa-usuario-1" class="has-text-black is-full has-background-grey-lighter has-border p-2 is-bordered">
-    <form action="<?=BASE_URL?>/users/create">
+<div id="jefe-mesa-usuario-1" class="has-text-black is-full has-border p-4 is-bordered">
+    <form action="<?=BASE_URL?>/usuarios/crear" method="POST">
         <div class="field is-grouped">
             <div class="control">
                 <label class="label is-size-6">RUT</label>
-                <input type="text" class="input" name="rut" />
+                <input type="text" class="input" name="rut" required/>
             </div>
             <div class="control">
                 <label class="label is-size-6">Correo</label>
-                <input type="email" class="input" name="correo"/>
+                <input type="email" class="input" name="correo"required/>
             </div>
         </div>
         <div class="field is-grouped">
             <div class="control">
                 <label class="label is-size-6">Nombre</label>
-                <input type="text" class="input" name="nombre"/>
+                <input type="text" class="input" name="nombre" required/>
             </div>
             <div class="control">
                 <label class="label is-size-6">Apellido</label>
-                <input type="email" class="input" name="apellido"/>
+                <input type="text" class="input" name="apellido" required/>
             </div>
         </div>
         <div class="field is-grouped is-center">
             <div class="control">
                 <label class="label is-size-6">Tipo Usuario</label>
                 <div class="select">
-                    <select class="input" name="tipo_usuario">
+                    <select class="input" name="id_tipo" required>
                         <?php foreach ($tiposUsuarios as $tiposUsuario ): ?>
                             <option value="<?=$tiposUsuario['id_tipo']?>"><?=$tiposUsuario['nombre']?></option>
                         <?php endforeach;?>
@@ -43,7 +43,7 @@ $tiposUsuarios = $selectsData['tiposUsuarios'];
             <div class="control">
                 <label class="label is-size-6">Tipo Area</label>
                 <div class="select">
-                    <select class="input" name="tipo_usuario">
+                    <select class="input" name="id_area">
                         <?php foreach ($tipoAreas as $area ): ?>
                             <option value="<?=$area['id_area']?>"><?=$area['nombre']?></option>
                         <?php endforeach;?>
@@ -53,7 +53,7 @@ $tiposUsuarios = $selectsData['tiposUsuarios'];
         </div>
         <div class="field has-text-centered">
             <div class="control">
-                <button class="button is-success m-3">Ingresar</button>
+                <button class="button is-success m-3 is-size-6">Ingresar</button>
             </div>
         </div>
 

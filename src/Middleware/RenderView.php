@@ -7,9 +7,9 @@ use JetBrains\PhpStorm\NoReturn;
 class RenderView
 {
 
-    #[NoReturn] public static function render($view = '', array $data = null)
+    public static function render($view, array $data = null): void
     {
-        $rolId = $_SESSION['user']['id_tipo'];
+        if( isset($_SESSION['user']) )$rolId = $_SESSION['user']['id_tipo'];
         if( isset($data['manageView']) ) $manageView = $data['manageView'];
         if( isset($data['selectsData']) ) $selectsData = $data['selectsData'];
         if( isset($data['data']) ) $data = $data['data'];

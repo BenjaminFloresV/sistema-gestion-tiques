@@ -49,8 +49,8 @@ class Area
                 $this->logger->warning('Cannot collect Areas data');
             }
 
-        } catch (Exception $exception){
-            $this->logger->warning('Something went wrong while trying to get Areas info');
+        } catch ( \Exception $exception){
+            $this->logger->warning('Something went wrong while trying to get Areas info', array('exception' => $exception));
         }
 
         return $result;
@@ -60,7 +60,7 @@ class Area
     {
         $result = false;
         try {
-            $this->logger->debug('Trying to create a new Area');
+            $this->logger->debug('Trying to create a new Areas');
             $sql = "INSERT INTO area(id_area, nombre) VALUES(:id_area, :nombre)";
             $st = $this->conn->prepare($sql);
 
@@ -69,16 +69,17 @@ class Area
 
             $query = $st->execute();
             if( $query ){
-                $this->logger->debug('Area has been created successfully');
+                $this->logger->debug('Areas has been created successfully');
                 $result = true;
             }else {
-                $this->logger->debug('Area creation has failed');
+                $this->logger->debug('Areas creation has failed');
             }
 
             $st->closeCursor();
 
-        } catch ( Exception $exception ){
-            $this->logger->error('Something went wrong while creating a new Area', array('exception'=>$exception));
+        } catch ( \Exception $exception ){
+            $this->logger->error('Something went wrong while creating a new Areas', array('exception'=>$exception));
+
         }
 
         return $result;
@@ -99,15 +100,89 @@ class Area
             $query = $st->execute();
 
             if( $query ) {
-                $this->logger->debug('Area updated successfully');
+                $this->logger->debug('Areas updated successfully');
                 $result = true;
             }else {
                 $this->logger->warning('Cannot update the area');
             }
 
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $this->logger->error('Somehting went wrong while updating the area', array('exception' => $exception));
         }
+        return $result;
+    }
+
+    public function delete()
+    {
+        $result = false;
+        try {
+            $sql = "DELETE FROM area WHERE id_area=:id_area";
+            $st = $this->conn->prepare($sql);
+
+            $st->bindValue(':id_area', $this->id_area, PDO::PARAM_INT);
+
+            $query = $st->execute();
+            if( $query ) {
+                $affectedRows = $st->rowCount();
+                if( $affectedRows !== 0 ) {
+                    $result = true;
+                    $this->logger->debug('Area was deleted successfully');
+                }else {
+                    $this->logger->debug('The Area do not exist');
+                }
+            }
+
+        }catch ( \Exception $exception){
+            $this->logger->debug('Something went wrong while trying to delete an Area', array('exception'=>$exception));
+        }
+
+        return $result;
+    }
+
+
+    // Verifies if this current area is being used in some tique
+    public function idInUse(): bool
+    {
+        $result = false;
+        try {
+            $sqlTique = "SELECT COUNT(*) AS uso FROM tique WHERE id_area=:id_area";
+            $sqlUsuario = "SELECT COUNT(*) AS uso FROM usuario  WHERE id_area=:id_area";
+
+            $firstSt = $this->conn->prepare($sqlTique);
+            $secondSt = $this->conn->prepare($sqlUsuario);
+
+            $firstSt->bindValue(':id_area', $this->id_area, PDO::PARAM_INT);
+
+            $query = $firstSt->execute();
+
+            if( $query ) {
+                $TiqueUsage = $firstSt->fetchColumn();
+                $firstSt->closeCursor();
+
+                $secondSt->bindValue(':id_area', $this->id_area, PDO::PARAM_INT);
+
+                $secondQuery = $secondSt->execute();
+
+                if( $secondQuery ) {
+                    $UsuarioUsage = $secondSt->fetchColumn();
+
+                    if( $TiqueUsage !== 0 || $UsuarioUsage !== 0 ) {
+                        $result = true;
+                        $this->logger->debug('There is an usage of this area, It cannot be deleted');
+                    }else {
+                        $this->logger->debug('There is no usage of the area id, It can be deleted');
+                    }
+                }
+
+                $secondSt->closeCursor();
+
+            }
+
+
+        }catch ( \Exception $exception){
+            $this->logger->debug('Something went wrong while trying to verify the usage', array('exception'=>$exception));
+        }
+
         return $result;
     }
 

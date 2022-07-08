@@ -43,7 +43,7 @@ class Criticidad
         $result = false;
         try {
             $this->logger->debug('Trying to get all the Critcidad data');
-            $sql = "SELECT * FROM criticidad";
+            $sql = "SELECT * FROM criticidad ORDER BY valor DESC";
 
             $st = $this->conn->prepare($sql);
             $query = $st->execute();
@@ -108,15 +108,77 @@ class Criticidad
             $query = $st->execute();
 
             if( $query ) {
+
                 $this->logger->debug('Criticidad updated successfully');
                 $result = true;
             }else {
                 $this->logger->warning('Cannot update the Criticidad');
             }
 
+            $st->closeCursor();
+
         } catch (Exception $exception) {
             $this->logger->error('Somehting went wrong while updating the criticidad', array('exception' => $exception));
         }
+
+
+
+        return $result;
+    }
+
+    // Verifies if this current criticidad is being used in some tique
+    public function idInUse(): bool
+    {
+        $result = false;
+        try {
+            $sql = "SELECT COUNT(*) AS uso FROM tique WHERE id_criticidad=:id_criticidad";
+            $st = $this->conn->prepare($sql);
+
+            $st->bindValue(':id_criticidad', $this->id_criticidad, PDO::PARAM_INT);
+
+            $query = $st->execute();
+            if( $query ) {
+                $usage = $st->fetchColumn();
+                if( $usage !== 0 ) {
+                    $result = true;
+                    $this->logger->debug('There is an usage of this criticidad, It cannot be deleted');
+                }else {
+                    $this->logger->debug('There is no usage of the criticidad id, It can be deleted');
+                }
+            }
+
+            $st->closeCursor();
+        }catch ( \Exception $exception){
+            $this->logger->debug('Something went wrong while trying to verify the usage', array('exception'=>$exception));
+        }
+
+        return $result;
+    }
+
+    public function delete(): bool
+    {
+        $result = false;
+        try {
+            $sql = "DELETE FROM criticidad WHERE id_criticidad=:id_criticidad";
+            $st = $this->conn->prepare($sql);
+
+            $st->bindValue(':id_criticidad', $this->id_criticidad, PDO::PARAM_INT);
+
+            $query = $st->execute();
+            if( $query ) {
+                $affectedRows = $st->rowCount();
+                if( $affectedRows !== 0 ) {
+                    $result = true;
+                    $this->logger->debug('Criticidad was deleted successfully');
+                }else {
+                    $this->logger->debug('The criticidad do not exists');
+                }
+            }
+
+        }catch (Exception $exception){
+            $this->logger->debug('Something went wrong while trying to delete a criticidad', array('exception'=>$exception));
+        }
+
         return $result;
     }
 }

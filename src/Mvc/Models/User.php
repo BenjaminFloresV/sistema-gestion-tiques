@@ -110,14 +110,15 @@ class User
 
 
             if( $query ) {
-                $this->log->info('User data has been collected successfully.');
-                $result = $st->fetchObject();
+                if( $st->rowCount() !== 0 ) {
+                    $this->log->info('User data has been collected successfully.');
+                    $result = $st->fetchObject();
+                }
             }
 
 
         } catch ( Exception $exception ) {
             $this->log->error('Somehting wrong while trying to get User data', array('exception', $exception));
-            throw new Exception($exception);
         }
 
         $st->closeCursor();
@@ -258,6 +259,72 @@ class User
 
         } catch (Exception $exception) {
             $this->log->error('Something went wrong while trying to update an user', array('exception'=> $exception));
+        }
+
+        return $result;
+    }
+
+    public function changeSystemAccess( bool $allow )
+    {
+        $result = false;
+        try{
+            $this->log->debug('Trying to update user system access');
+            $sql = "UPDATE usuario SET login_habilitado=:login_habilitado WHERE rut=:rut";
+
+            $st = $this->conn->prepare($sql);
+
+            $st->bindValue(':login_habilitado', $allow, PDO::PARAM_BOOL);
+            $st->bindValue(':rut', $this->rut, PDO::PARAM_STR);
+
+            $query = $st->execute();
+
+            if( $query ) {
+                if( $st->rowCount() !== 0 ){
+                    $result = true;
+                    $this->log->debug('User system access status changed successfully');
+                }
+            }else {
+                $this->log->debug('Failed to update User system access status');
+            }
+
+            $st->closeCursor();
+
+        }catch ( Exception $exception ){
+            $this->log->error('Something went wrong while trying to change system access');
+        }
+
+        return $result;
+    }
+
+
+    public function resetPassword()
+    {
+        $result = false;
+        try{
+            $this->log->debug('Trying to update user system access');
+            $sql = "UPDATE usuario SET password=:password, expiration_password=:expiration_password WHERE rut=:rut";
+
+            $st = $this->conn->prepare($sql);
+
+            $st->bindValue(':rut', $this->rut, PDO::PARAM_STR);
+            $st->bindValue(':password', $this->password, PDO::PARAM_STR);
+            $st->bindValue(':expiration_password', $this->expiration_password, PDO::PARAM_STR);
+
+            $query = $st->execute();
+
+            if( $query ) {
+                if( $st->rowCount() !== 0 ){
+                    $result = true;
+                    $this->log->debug('User system access status changed successfully');
+                }
+            }else {
+                $this->log->debug('Failed to update User system access status');
+            }
+
+            $st->closeCursor();
+
+        }catch ( Exception $exception ){
+            $this->log->error('Something went wrong while trying to change system access');
         }
 
         return $result;

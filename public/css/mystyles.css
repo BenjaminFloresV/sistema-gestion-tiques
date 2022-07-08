@@ -1,6 +1,6 @@
 :root {
-    --panelBorderStyle: 1px solid #333;
-    --panelBorderRadius: 5px;
+    --panelBorderStyle: 1px solid #AAA;
+    --panelBorderRadius: 15px;
 }
 
 .has-border {
@@ -8,15 +8,27 @@
     border-radius: var(--panelBorderRadius);
 }
 
+.special-shadow-div {
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow:  5px 5px 10px #a8a8a8,
+    -5px -5px 10px #ffffff;
+}
+
 #rootContainer {
-    border: var(--panelBorderStyle);
-    border-radius: var(--panelBorderRadius);
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow:  5px 5px 10px #a8a8a8,
+    -5px -5px 10px #ffffff;
     min-height: 500px;
+
 }
 
 #menuJefeMesa {
-    border: var(--panelBorderStyle);
-    border-radius: var(--panelBorderRadius);
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow:  5px 5px 10px #a8a8a8,
+    -5px -5px 10px #ffffff;
     min-height: 200px !important;
 }
 
@@ -27,4 +39,43 @@
 
 .is-100-width {
     width: 100%;
+}
+
+.thead-centered > tr > th {
+    text-align: center !important;
+}
+
+.tbody-centered > tr > th,td {
+    text-align: center !important;
+}
+
+@media ( min-width: 768px ) {
+    .modal-450-width {
+        width: 450px !important;
+    }
+
+    .modal-400-width {
+        width: 400px !important;
+    }
+}
+
+
+.is-pointer {
+    cursor: pointer;
+}
+
+.is-100v-height {
+    height: 100vh;
+}
+
+.is-450-width {
+    width: 450px;
+}
+
+.is-200-width {
+    width: 200px;
+}
+
+#update-action-container {
+    display: none;
 }

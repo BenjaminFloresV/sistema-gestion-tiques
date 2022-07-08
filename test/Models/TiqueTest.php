@@ -7,7 +7,7 @@ use SistemaTique\Mvc\Models\Tique;
 
 class TiqueTest extends TestCase
 {
-    /** @test  */
+
     public function create()
     {
         $tique = new Tique();
@@ -26,5 +26,64 @@ class TiqueTest extends TestCase
         $create = $tique->create();
 
         $this->assertEquals(true, $create);
+    }
+
+
+    public function getTiqueTypes()
+    {
+        $tique = new Tique();
+        $tiqueTypes = $tique->getTiqueTypes();
+
+        $this->assertEquals('array', gettype($tiqueTypes));
+    }
+
+
+    public function createTipoTique()
+    {
+        $tique = new Tique();
+        $tique->setNombreTipoTique('Emergencia');
+        $newTipoTique= $tique->createTipo();
+
+        $this->assertEquals(true, $newTipoTique);
+    }
+
+    public function updateTipo()
+    {
+        $tique = new Tique();
+        $tique->setIdTipoTique(1);
+        $tique->setNombreTipoTique('Felicitación');
+
+        $updateTipoTique =$tique->updateTipo();
+
+
+        $this->assertEquals(true, $updateTipoTique);
+    }
+
+
+
+    public function tipoTiqueIsUsed()
+    {
+        $tique = new Tique();
+        $tique->setIdTipoTique(100);
+
+        $isUsed = $tique->idInUse();
+
+        $this->assertEquals(true, $isUsed);
+
+    }
+
+    /** @test  */
+    public function deleteTipo()
+    {
+        $tique = new Tique();
+        $tique->setIdTipoTique(8);
+        $result = false;
+        $isUsed = $tique->idInUse();
+
+        if( !$isUsed ) {
+            $result = $tique->deleteTipo();
+        }
+
+        $this->assertEquals(true, $result);
     }
 }
