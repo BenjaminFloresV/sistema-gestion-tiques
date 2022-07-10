@@ -122,5 +122,34 @@ class JefeMesaController
         );
     }
 
+    public function showHome()
+    {
+        $tique = new Tique();
+        $tiqueStateStats = $tique->getStatsByState();
+        $tiqueTypeStats = $tique->getStatsByType();
+
+        $state = [];
+        $amount = [];
+
+        $types = [];
+        $amountType = [];
+        foreach ($tiqueStateStats as $stat){
+            $state[] = $stat['nombre'];
+            $amount[] = $stat['cantidad'];
+        }
+
+        foreach ($tiqueTypeStats as $stat){
+            $types[] = $stat['nombre'];
+            $amountType[] = $stat['cantidad'];
+        }
+
+
+
+        $tiqueStats = ['estados' => $state,'cantidades' => $amount, 'tipos' => $types, 'cantidadesTipos' => $amountType, 'allTiqueTypesData' => $tiqueTypeStats];
+
+        RenderView::render('admin-panel',[
+            'tiqueStats' => $tiqueStats
+        ]);
+    }
 
 }

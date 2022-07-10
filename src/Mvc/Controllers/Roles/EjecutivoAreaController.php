@@ -33,4 +33,9 @@ class EjecutivoAreaController
         );
     }
 
+
+    public function showHome()
+    {
+        RenderView::render('admin-panel');
+    }
 }

@@ -37,4 +37,9 @@ class EjecutivoMesaController
             ]
         );
     }
+
+    public function showHome()
+    {
+        RenderView::render('admin-panel');
+    }
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sistema Tiques</title>
     <link rel="stylesheet" href="<?=BASE_URL?>/css/bulma.css">
-    <link rel="stylesheet" href="<?=BASE_URL?>/css/mystyles.css">
+    <link rel="stylesheet" href="<?=BASE_URL?>/css/mystyles.css?t=<?=time()?>">
     <!-- Cargar React. -->
     <!-- Nota: cuando se despliegue, reemplazar "development.js" con "production.min.js". -->
     <!--
@@ -18,4 +18,45 @@
     <script src="<?=BASE_URL?>/js/validations/validations.js?t=<?=time()?>"></script>
 </head>
 <body>
+<nav class="navbar has-background-grey-darker pl-4 pr-4" role="navigation" aria-label="main navigation">
+    <?php if(isset($_SESSION['user'])):?>
+    <div class="navbar-brand">
+        <a class="navbar-item is-white">
+            <span class="icon"><i class="fa-solid fa-user icon mt-2 icon-white"></i></span>
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
 
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item icon-custom cancel-hover mr-2">
+                <div class="is-size-7">
+                    <span class="is-underlined">Usuario:</span> <?=$_SESSION['user']['nombre'] ?>
+                </div>
+                <div class="is-size-7">
+                    <span class="is-underlined">Área:</span> <?=$_SESSION['user']['nombreArea']?>
+                </div>
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <a class="navbar-item icon-custom cancel-hover mr-2">
+                <div class="is-size-5">
+                    <span class="is-underlined">Rol:</span> <?=$_SESSION['user']['nombreTipo'] ?>
+                </div>
+            </a>
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a href="<?=BASE_URL.'/admin-home/cerrar'?>" class="button is-light">
+                        Salir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif;?>
+</nav>

@@ -6,6 +6,7 @@ use SistemaTique\Helpers\FormVerifier;
 use SistemaTique\Helpers\Helpers;
 use SistemaTique\Helpers\NewLogger;
 use SistemaTique\Middleware\RenderView;
+use SistemaTique\Mvc\Controllers\HandleController\HandleController;
 use SistemaTique\Mvc\Models\User;
 
 class UserController
@@ -33,7 +34,9 @@ class UserController
         if( Helpers::userExist('user') ) {
             try {
 
-                RenderView::render('admin-panel');
+                $handler = new HandleController();
+
+                $handler->manageHome();
 
             } catch (\Exception $exception) {
                 $log->error('Something went wrong in adminHome Method', array('exception' => $exception));
@@ -73,10 +76,11 @@ class UserController
                             'id_usuario' => $userData->id_usuario,
                             'id_area' => $userData->id_area,
                             'nombreArea' => $userData->nombreArea,
-                            'nombre' => $userData->nombre,
+                            'nombre' => $userData->nombre.' '.$userData->apellido,
                             'apellido' => $userData->apellido,
                             'rut' => $userData->rut,
-                            'id_tipo' => $userData->id_tipo
+                            'id_tipo' => $userData->id_tipo,
+                            'nombreTipo' =>$userData->nombreTipo
                         );
 
                         $_SESSION['user'] = $userSecureData;

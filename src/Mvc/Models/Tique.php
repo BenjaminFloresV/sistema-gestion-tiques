@@ -509,5 +509,53 @@ class Tique
     }
 
 
+    public function getStatsByState()
+    {
+        $result = false;
+        try {
+            $this->logger->debug('Trying to get Tique stats data');
+            $sql = "SELECT et.nombre, COUNT(t.id_tique) as cantidad FROM `tique` t \n"
+
+                . "INNER JOIN estado_tique et ON t.id_estado=et.id_estado GROUP BY et.nombre;";
+            $st = $this->conn->prepare($sql);
+
+            $query = $st->execute();
+
+            if( $query ) {
+                $result = $st->fetchAll(PDO::FETCH_ASSOC);
+            }
+
+            $st->closeCursor();
+
+        } catch (\Exception $exception) {
+            $this->logger->error('Something went wrong while trying to get Tique stats data', array('exception' => $exception));
+        }
+
+        return $result;
+    }
+
+
+    public function getStatsByType()
+    {
+        $result = false;
+        try {
+            $this->logger->debug('Trying to get Tique stats data');
+            $sql = "SELECT tt.nombre, COUNT(t.id_tique) as cantidad FROM `tique` t RIGHT JOIN tipo_tique tt ON t.id_tipo=tt.id_tipo GROUP BY tt.nombre HAVING cantidad >= 0;";
+            $st = $this->conn->prepare($sql);
+
+            $query = $st->execute();
+
+            if( $query ) {
+                $result = $st->fetchAll(PDO::FETCH_ASSOC);
+            }
+
+            $st->closeCursor();
+
+        } catch (\Exception $exception) {
+            $this->logger->error('Something went wrong while trying to get Tique stats data', array('exception' => $exception));
+        }
+
+        return $result;
+    }
 
 }

@@ -2,9 +2,10 @@
 
 /** @var $rolId */
 /** @var $manageView */
+/** @var $tiqueStats */
+
 ?>
 <?php require_once __DIR__ . '../../messages-modal.phtml' ?>
-<h1 class="title is-block">Bienvenido Jefe de Mesa</h1>
 <div class="columns">
     <div class="column pt-0">
         <aside id="menuJefeMesa" class="menu p-4 has-background-white">
@@ -12,6 +13,7 @@
                 Administración
             </p>
             <ul class="menu-list">
+                <li><a href="<?=BASE_URL?>/admin-home/">Dashboard</a></li>
                 <li>
                     <div class="dropdown is-hoverable is-block">
                         <div class="dropdown-trigger">
@@ -36,19 +38,16 @@
                 <li><a href="<?=BASE_URL?>/admin-home/tipos-tique/" >Tipo Tiques</a> </li>
                 <li><a id="tipoArea" href="<?=BASE_URL?>/admin-home/areas/">Áreas</a></li>
                 <li><a href="<?=BASE_URL?>/admin-home/tiques/" >Tiques</a> </li>
-                <li><a href="<?=BASE_URL.'/admin-home/cerrar'?>">Cerrar Sesión</a></li>
             </ul>
         </aside>
     </div>
     <div id="rootContainer" class="column is-three-quarters has-text-white is-bordered has-background-white">
       <div class="p-4 is-flex is-justify-content-center container" id="root">
-
           <?php if( isset($manageView) ): ?>
             <?php require_once __DIR__.'/'.$manageView.'.phtml'; ?>
           <?php else: ?>
-          <p class="has-text-black">Dashboard papu</p>
+            <?php require_once __DIR__.'/dashboard.phtml'; ?>
           <?php endif; ?>
-
       </div>
     </div>
 </div>
