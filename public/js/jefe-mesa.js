@@ -13,11 +13,3 @@ document.addEventListener('DOMContentLoaded', function () {
       verUsuariosContainer.style.display = 'block';
    });
 });
-
-function cleanInputs() {
-   var inputs = document.querySelectorAll('.clean-input');
-
-   inputs.forEach(function (input) {
-      input.value = '';
-   });
-}

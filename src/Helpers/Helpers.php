@@ -101,7 +101,15 @@ class Helpers
 
         if ($action == 'ver') {
             $method = $object[1];
-            $result = $object[0]->$method();
+            if( isset($options['filterByAreaAndState']) ) {
+                if( isset($options['includeClientInfo']) ) {
+                    $result = $object[0]->$method($options['filterByAreaAndState'], true);
+                }else {
+                    $result = $object[0]->$method($options['filterByAreaAndState']);
+                }
+            }else {
+                $result = $object[0]->$method();
+            }
 
         }
 
@@ -111,8 +119,11 @@ class Helpers
 
     public static function isAdmin(int $userType):void
     {
-        if( !isset($_SESSION['user']) && $_SESSION['user'] === $userType){
-            header('Location:'.BASE_URL.'/admin-home');
+        if( !isset($_SESSION['user']) ){
+            header('Location:'.BASE_URL.'/admin-home/');
+            exit();
+        }else if( isset($_SESSION['user']) && $_SESSION['user']['id_tipo'] !== $userType ) {
+            header('Location:'.BASE_URL.'/admin-home/');
             exit();
         }
     }

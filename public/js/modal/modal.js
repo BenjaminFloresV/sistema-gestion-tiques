@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeModal($el) {
         $el.classList.remove('is-active');
         //cerrar formulario para actualizar las criticidades
-        document.querySelector('#update-action-container').style.display = 'none';
+        var updateActionContainer = document.querySelector('#update-action-container');
+        if (updateActionContainer !== null) updateActionContainer.style.display = 'none';
+
         // Clean inputs
         cleanInputs();
     }
@@ -33,7 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var $target = $close.closest('.modal');
 
         $close.addEventListener('click', function () {
-            closeModal($target);
+            if ($close.classList.contains('do-not-close') === false) {
+                closeModal($target);
+            }
         });
     });
 
@@ -100,3 +104,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+function cleanInputs() {
+    var inputs = document.querySelectorAll('.clean-input');
+
+    inputs.forEach(function (input) {
+        input.value = '';
+    });
+}

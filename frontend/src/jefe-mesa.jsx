@@ -14,11 +14,3 @@ document.addEventListener('DOMContentLoaded', () => {
    });
 
 });
-
-function cleanInputs(){
-   let inputs = document.querySelectorAll('.clean-input');
-
-   inputs.forEach(function (input){
-      input.value = '';
-   });
-}

@@ -25,13 +25,14 @@ class ClientTest extends TestCase
 
     }
 
+    /** @test */
     public function getClientInfo()
     {
         $client = new Client();
-        $client->setRutCliente('13008100-2');
+        $client->setRutCliente('13008100-22');
         $clientData = $client->getClientInfo();
 
-        $this->assertEquals('object', gettype($clientData));
+        $this->assertEquals(false, $clientData);
 
     }
 
@@ -55,7 +56,7 @@ class ClientTest extends TestCase
         $this->assertEquals(true, $create);
     }
 
-    /** @test */
+
     public function update()
     {
         $client = new Client();

@@ -1,13 +1,12 @@
 <?php
 
-namespace SistemaTique\Mvc\Controllers;
+namespace SistemaTique\Mvc\Controllers\Entities;
 
-use PHPUnit\TextUI\Help;
 use SistemaTique\Helpers\FormVerifier;
 use SistemaTique\Helpers\Helpers;
 use SistemaTique\Helpers\NewLogger;
-use SistemaTique\Mvc\Models\User;
 use SistemaTique\Middleware\RenderView;
+use SistemaTique\Mvc\Models\User;
 
 class UserController
 {
@@ -72,6 +71,8 @@ class UserController
                     }else {
                         $userSecureData =  array(
                             'id_usuario' => $userData->id_usuario,
+                            'id_area' => $userData->id_area,
+                            'nombreArea' => $userData->nombreArea,
                             'nombre' => $userData->nombre,
                             'apellido' => $userData->apellido,
                             'rut' => $userData->rut,

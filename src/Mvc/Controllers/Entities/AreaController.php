@@ -1,11 +1,10 @@
 <?php
 
-namespace SistemaTique\Mvc\Controllers;
+namespace SistemaTique\Mvc\Controllers\Entities;
 
 use SistemaTique\Helpers\FormVerifier;
 use SistemaTique\Helpers\Helpers;
 use SistemaTique\Mvc\Models\Area;
-use SistemaTique\Mvc\Models\Criticidad;
 
 class AreaController
 {

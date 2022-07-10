@@ -1,6 +1,6 @@
 <?php
 
-namespace SistemaTique\Mvc\Controllers;
+namespace SistemaTique\Mvc\Controllers\Entities;
 
 use SistemaTique\Helpers\FormVerifier;
 use SistemaTique\Helpers\Helpers;

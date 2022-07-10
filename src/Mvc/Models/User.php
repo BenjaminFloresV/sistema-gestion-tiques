@@ -98,11 +98,12 @@ class User
         try {
             $this->log->info('Trying to get user data');
             $wantedData = array(
-                'id_usuario', 'id_tipo', 'id_area', 'login_habilitado', 'nombre',
-                'apellido', 'telefono','correo', 'rut', 'expiration_password', 'password'
+                'u.id_usuario', 'u.id_tipo', 'u.id_area', 'u.login_habilitado', 'u.nombre',
+                'u.apellido', 'u.telefono','u.correo', 'u.rut', 'u.expiration_password', 'u.password',
+                'a.nombre AS nombreArea'
             );
             $sql = "SELECT ".implode(",", $wantedData).", UNIX_TIMESTAMP(fecha_nacimiento) AS fechaNacimiento ";
-            $sql .= "FROM usuario WHERE rut=:rut";
+            $sql .= "FROM usuario u INNER JOIN area a ON a.id_area=u.id_area WHERE rut=:rut";
             $st = $this->conn->prepare($sql);
 
             $st->bindParam(':rut',$this->rut,PDO::PARAM_STR);

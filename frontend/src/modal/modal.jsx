@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeModal($el) {
         $el.classList.remove('is-active');
         //cerrar formulario para actualizar las criticidades
-        document.querySelector('#update-action-container').style.display = 'none';
+        let updateActionContainer = document.querySelector('#update-action-container');
+        if( updateActionContainer !== null ) updateActionContainer.style.display = 'none';
+
         // Clean inputs
         cleanInputs();
     }
@@ -33,7 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const $target = $close.closest('.modal');
 
         $close.addEventListener('click', () => {
-            closeModal($target);
+            if( $close.classList.contains('do-not-close') === false ) {
+                closeModal($target);
+            }
         });
     });
 
@@ -105,3 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
+
+function cleanInputs(){
+    let inputs = document.querySelectorAll('.clean-input');
+
+    inputs.forEach(function (input){
+        input.value = '';
+    });
+}

@@ -67,14 +67,19 @@ class Client
 
             if( $query ) {
 
-                $result = $st->fetchObject();
-                $this->logger->debug('Client data has been collected', array('data' => $result));
+                if( $st->columnCount() > 0 ) {
+                    $result = $st->fetchObject();
+                    $this->logger->debug('Client data has been collected', array('data' => $result));
+                }else {
+                    $this->logger->debug('Client with rut: '.$this->rut_cliente.' do not exists');
+                }
+
             }else {
                 $this->logger->debug('Client data cannot be collected');
             }
 
 
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $this->logger->error('Something went wrong while trying to get Client info', array('exception' => $exception));
         }
 

@@ -96,7 +96,7 @@ class TiqueTest extends TestCase
         $this->assertEquals('array', gettype($allTique));
     }
 
-    /** @test  */
+
     public function getAllFiltered()
     {
         $tique = new Tique();
@@ -108,5 +108,14 @@ class TiqueTest extends TestCase
 
         $this->assertEquals('array', gettype($allData));
         $this->assertCount(3, $allData);
+    }
+
+    /** @test  */
+    public function getStates()
+    {
+        $tique = new Tique();
+        $states = $tique->getStates();
+
+        $this->assertEquals('array', gettype($states));
     }
 }

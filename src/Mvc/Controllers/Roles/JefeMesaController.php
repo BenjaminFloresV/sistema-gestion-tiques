@@ -1,6 +1,6 @@
 <?php
 
-namespace SistemaTique\Mvc\Controllers;
+namespace SistemaTique\Mvc\Controllers\Roles;
 
 use SistemaTique\Helpers\FormVerifier;
 use SistemaTique\Helpers\Helpers;
@@ -14,6 +14,7 @@ class JefeMesaController
 {
     public function manageUsuarios(string $action = null)
     {
+        Helpers::isAdmin(2);
         $action = Helpers::verifyAction($action);
         $needsSelects = Helpers::verifySelects($action);
         $selectsData = null;
@@ -40,6 +41,7 @@ class JefeMesaController
 
     public function manageCriticidad( string $action = null )
     {
+        Helpers::isAdmin(2);
         $action = Helpers::verifyAction($action);
 
         $data = Helpers::retrieveObjectData( $action, [new Criticidad(), 'getAll'] );
@@ -56,6 +58,7 @@ class JefeMesaController
     public function manageAreas( string $action = null )
     {
 
+        Helpers::isAdmin(2);
         $action = Helpers::verifyAction($action);
 
         $data = Helpers::retrieveObjectData( $action, [new Area(), 'getAll'] );
@@ -71,6 +74,7 @@ class JefeMesaController
 
     public function manageTiposTique( string $action = null ): void
     {
+        Helpers::isAdmin(2);
         $action = Helpers::verifyAction($action);
 
         $data = Helpers::retrieveObjectData($action, [new Tique(), 'getTiqueTypes']);
@@ -87,6 +91,7 @@ class JefeMesaController
 
     public function manageTiques( string $action = null ): void
     {
+        Helpers::isAdmin(2);
         $action = Helpers::verifyAction($action);
         if( isset($_GET) && !empty($_GET) && FormVerifier::verifyPossibleKeys(['fecha', 'id_criticidad', 'id_tipo', 'id_area', 'rut_usuario_crea', 'rut_usuario_cierra'], $_GET) && FormVerifier::verifyInputs($_GET)) {
 

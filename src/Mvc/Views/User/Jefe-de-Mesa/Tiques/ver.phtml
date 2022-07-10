@@ -6,8 +6,8 @@
 $tipoAreas = $selectsData['tipoAreas'];
 $tiposTique = $selectsData['tiposTique'];
 $criticidades = $selectsData['criticidades'];
-?>
 
+?>
 <div id="jefe-mesa-usuario-2" class="is-100-width has-text-black is-full p-2 is-bordered">
     <div class="is-text has-text-black">
         <form action="<?=BASE_URL?>/admin-home/tiques/" method="GET">
@@ -15,10 +15,10 @@ $criticidades = $selectsData['criticidades'];
                 <div class="field is-inline-block is-absolute">
                     <div id="dropdown-1" class="dropdown">
                         <div class="dropdown-trigger">
-                            <button class="button js-dropdown-trigger is-success" aria-haspopup="true" data-target="dropdown-1" aria-controls="dropdown-menu2">
+                            <button class="button js-dropdown-trigger" aria-haspopup="true" data-target="dropdown-1" aria-controls="dropdown-menu2">
                                 <span>Filtros</span>
                                 <span class="icon is-small">
-                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    <i class="fas fa-angle-down is-success" aria-hidden="true"></i>
                                   </span>
                             </button>
                         </div>
@@ -145,6 +145,7 @@ $criticidades = $selectsData['criticidades'];
             </tr>
             </thead>
             <tbody class="tbody-centered">
+            <?php if( !empty($data) ) : ?>
             <?php foreach ($data as $tique): ?>
                 <tr class="has-text-centered">
                     <td class="pt-2 pb-2"><?=$tique['nombre_creador']?></td>
@@ -155,6 +156,11 @@ $criticidades = $selectsData['criticidades'];
                     <td class="pt-2 pb-2"><?=$tique['nombre_etique']?></td>
                 </tr>
             <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td  class="pt-5" colspan="6">No se encontraron resultados</td>
+                </tr>
+            <?php endif; ?>
             </tbody>
         </table>
     </div>
