@@ -16,6 +16,7 @@
     <script src="<?=BASE_URL?>/js/modal/modal.js?t=<?=time()?>"></script>
     <script src="https://kit.fontawesome.com/81bf225702.js" crossorigin="anonymous"></script>
     <script src="<?=BASE_URL?>/js/validations/validations.js?t=<?=time()?>"></script>
+
 </head>
 <body>
 <nav class="navbar has-background-grey-darker pl-4 pr-4" role="navigation" aria-label="main navigation">
@@ -35,7 +36,7 @@
         <div class="navbar-start">
             <a class="navbar-item icon-custom cancel-hover mr-2">
                 <div class="is-size-7">
-                    <span class="is-underlined">Usuario:</span> <?=$_SESSION['user']['nombre'] ?>
+                    <span class="is-underlined">Usuario:</span> <?=$_SESSION['user']['nombreCompleto'] ?>
                 </div>
                 <div class="is-size-7">
                     <span class="is-underlined">Área:</span> <?=$_SESSION['user']['nombreArea']?>
@@ -46,7 +47,7 @@
         <div class="navbar-end">
             <a class="navbar-item icon-custom cancel-hover mr-2">
                 <div class="is-size-5">
-                    <span class="is-underlined">Rol:</span> <?=$_SESSION['user']['nombreTipo'] ?>
+                    <span class="is-underlined"></span> <?=$_SESSION['user']['nombreTipo'] ?>
                 </div>
             </a>
             <div class="navbar-item">

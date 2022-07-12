@@ -18,16 +18,17 @@ class UserController
 
     }
 
-    public function login()
+    public function login(): void
     {
         if( !Helpers::userExist('user') ) {
             RenderView::render('login');
         }else {
             header("Location:".BASE_URL."/admin-home");
+            exit();
         }
     }
 
-    public function adminHome()
+    public function adminHome(): void
     {
         $log = NewLogger::newLogger('USER_CONTROLLER', 'FirePHPHandler');
 
@@ -48,7 +49,7 @@ class UserController
 
     }
 
-    public function logout()
+    public function logout():void
     {
         Helpers::removeSession('user');
         header('Location:'.BASE_URL.'/admins-login');
@@ -56,7 +57,7 @@ class UserController
     }
 
 
-    public function loginVerify()
+    public function loginVerify():void
     {
         if( isset($_POST) && !Helpers::userExist('user') ) {
 
@@ -75,12 +76,17 @@ class UserController
                         $userSecureData =  array(
                             'id_usuario' => $userData->id_usuario,
                             'id_area' => $userData->id_area,
+                            'correo' => $userData->correo,
+                            'telefono' => $userData->telefono,
+                            'fechaNacimiento' => $userData->fechaNacimiento,
                             'nombreArea' => $userData->nombreArea,
-                            'nombre' => $userData->nombre.' '.$userData->apellido,
+                            'nombreCompleto' => $userData->nombre.' '.$userData->apellido,
+                            'nombre' => $userData->nombre,
                             'apellido' => $userData->apellido,
                             'rut' => $userData->rut,
                             'id_tipo' => $userData->id_tipo,
-                            'nombreTipo' =>$userData->nombreTipo
+                            'nombreTipo' =>$userData->nombreTipo,
+                            'expiracionPassword' => $userData->expiration_password
                         );
 
                         $_SESSION['user'] = $userSecureData;
@@ -102,7 +108,7 @@ class UserController
         exit();
     }
 
-    public function create()
+    public function create():void
     {
         Helpers::isAdmin(2);
         if( isset($_POST) && !empty($_POST) ){
@@ -142,7 +148,7 @@ class UserController
     }
 
 
-    public function restrictAccess( string $rut = null )
+    public function restrictAccess( string $rut = null ):void
     {
         Helpers::isAdmin(2);
         if( isset($rut) ){
@@ -162,7 +168,7 @@ class UserController
         exit();
     }
 
-    public function allowAccess( string $rut = null )
+    public function allowAccess( string $rut = null ):void
     {
         Helpers::isAdmin(2);
         if( isset($rut) ){
@@ -182,28 +188,35 @@ class UserController
         exit();
     }
 
-    public function resetPassword( string $rut = null )
+    public function resetPassword( string $rut = null ):void
     {
         Helpers::isAdmin(2);
         if( isset($rut) ){
             $user = new User();
             $user->setRut($rut);
-            $newPassword = Helpers::generateRandomPassword();
-            $user->setPassword(password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12] ));
-            $user->setPasswordExpiration(time() + (7 * 24 * 60 * 60)); // The next week will expirate the password
+            $userInfo = $user->getOneByRut();
 
-            $updatePassword = $user->resetPassword();
+            if( $userInfo->login_habilitado ) {
+                $_SESSION['error-message'] = 'El usuario todavía tiene acceso al sistema.';
+            }else {
+                $newPassword = Helpers::generateRandomPassword();
+                $user->setPassword(password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12] ));
+                $user->setPasswordExpiration(time() + (7 * 24 * 60 * 60)); // The next week will expirate the password
 
-            if( $updatePassword ) {
-                $allowAccess = $user->changeSystemAccess(true);
-                if( $allowAccess ) {
-                    $_SESSION['success-message'] = "Contraseña generada con éxito.<br> Rut Usuario: <b>$rut</b><br> Nueva contraseña: <b>$newPassword</b> ";
+                $updatePassword = $user->resetPassword();
+
+                if( $updatePassword ) {
+
+                    $allowAccess = $user->changeSystemAccess(true);
+                    if( $allowAccess ) {
+                        $_SESSION['success-message'] = "Contraseña generada con éxito.<br> Rut Usuario: <b>$rut</b><br> Nueva contraseña: <b>$newPassword</b> ";
+                    }else {
+                        $_SESSION['error-message'] = "Algo salió mal, intente nuevamente.";
+                    }
+
                 }else {
-                    $_SESSION['error-message'] = "El usuario todavía tiene acceso al sistema.";
+                    $_SESSION['error-message'] = 'Algo salió mal al generar la contraseña, intente nuevamente.';
                 }
-
-            }else{
-                $_SESSION['error-message'] = "No se pudo actualizar la contraseña";
             }
         }
 
@@ -212,4 +225,35 @@ class UserController
 
     }
 
+    public function changePassword()
+    {
+        if( Helpers::userExist('user') ) {
+
+            if (isset($_POST) && !empty($_POST) && FormVerifier::verifyKeys(['password', 'repeat_password'], $_POST)) {
+                if( $_POST['password'] === $_POST['repeat_password'] ) {
+
+                    $user = new User();
+                    $user->setRut($_SESSION['user']['rut']);
+                    $user->setPassword(password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 12] ));
+
+                    $changePass = $user->changePassword();
+
+                    if( $changePass ) {
+                        $_SESSION['success-message'] = 'Contraseña actualizada con éxito';
+                        $_SESSION['user']['expiracionPassword'] = null;
+                    }else {
+                        $_SESSION['error-message'] = 'La contraseña no se pudo actualizar.';
+                    }
+
+                }else {
+                    $_SESSION['error-message'] = 'Las contraseñas no coinciden';
+                }
+            }else {
+                $_SESSION['error-message'] = 'Faltan datos necesarios para la operación';
+            }
+        }
+
+        header('Location:'.BASE_URL.'/admin-home/perfil/');
+        exit();
+    }
 }

@@ -93,7 +93,7 @@ class JefeMesaController
     {
         Helpers::isAdmin(2);
         $action = Helpers::verifyAction($action);
-        if( isset($_GET) && !empty($_GET) && FormVerifier::verifyPossibleKeys(['fecha', 'id_criticidad', 'id_tipo', 'id_area', 'rut_usuario_crea', 'rut_usuario_cierra'], $_GET) && FormVerifier::verifyInputs($_GET)) {
+        if( isset($_GET) && !empty($_GET) && FormVerifier::verifyPossibleKeys(['fecha', 'id_criticidad', 'id_tipo', 'id_area', 'rut_usuario_crea', 'rut_usuario_cierra', 'page'], $_GET) && FormVerifier::verifyInputs($_GET)) {
 
             $tique = new Tique();
             $data = $tique->getAllFiltered($_GET);
@@ -151,5 +151,15 @@ class JefeMesaController
             'tiqueStats' => $tiqueStats
         ]);
     }
+
+    public function showProfile()
+    {
+        RenderView::render('admin-panel',[
+            'profileData' => $_SESSION['user'],
+            'profileView' => 'profile'
+        ]);
+    }
+
+
 
 }

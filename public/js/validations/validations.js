@@ -7,11 +7,9 @@ function verifyRut(input_rut) {
     var rutParts = rut.split('-');
     //Validamos que el rut esté ingresado sin el dígito verifcador
     var isValid = void 0;
-    console.log(rutParts[0]);
+
     if (!Number.isNaN(rutParts[0]) && rutParts[0].length >= 7) {
         isValid = true;
-    } else {
-        console.log('El rut ingresado no es válido');
     }
 
     if (isValid) {
@@ -98,6 +96,70 @@ function validPhone(input) {
     return !Number.isNaN(input.value) && input.value.length === 9;
 }
 
+function validatePassword(isValid) {
+    // timeout before a callback is called
+
+    var timeout = void 0;
+    // traversing the DOM and getting the input and span using their IDs
+
+    var password = document.getElementById('PassEntry');
+    var strengthBadge = document.getElementById('StrengthDisp');
+
+    // The strong and weak password Regex pattern checker
+
+    var strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
+    var mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))');
+
+    function StrengthChecker(PasswordParameter) {
+        // We then change the badge's color and text based on the password strength
+
+        if (strongPassword.test(PasswordParameter)) {
+            if (isValid.length < 1) {
+                isValid.push(true);
+            }
+
+            strengthBadge.style.backgroundColor = "green";
+            strengthBadge.textContent = 'Fuerte';
+        } else if (mediumPassword.test(PasswordParameter)) {
+            if (isValid.length === 1) {
+                isValid.pop();
+            }
+            strengthBadge.style.backgroundColor = 'blue';
+            strengthBadge.textContent = 'Mediana';
+        } else {
+            if (isValid.length === 1) {
+                isValid.pop();
+            }
+            strengthBadge.style.backgroundColor = 'red';
+            strengthBadge.textContent = 'Débil';
+        }
+    }
+
+    // Adding an input event listener when a user types to the  password input
+
+    password.addEventListener("input", function () {
+
+        //The badge is hidden by default, so we show it
+
+        strengthBadge.style.display = 'block';
+        clearTimeout(timeout);
+
+        //We then call the StrengChecker function as a callback then pass the typed password to it
+
+        timeout = setTimeout(function () {
+            return StrengthChecker(password.value);
+        }, 200);
+
+        //Incase a user clears the text, the badge is hidden again
+
+        if (password.value.length !== 0) {
+            strengthBadge.style.display !== 'block';
+        } else {
+            strengthBadge.style.display = 'none';
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     var buttons = document.querySelectorAll('.rut-btn-verify') || [];
     buttons.forEach(function (button) {
@@ -105,8 +167,15 @@ document.addEventListener('DOMContentLoaded', function () {
         var rutInput = document.getElementById(target);
 
         button.addEventListener('click', function (e) {
+            var ningunoOption = document.getElementById('ninguno');
+            if (ningunoOption !== null) {
+                if (!ningunoOption.checked) {
+                    e.preventDefault();
+                } else {
+                    return undefined;
+                }
+            }
             e.preventDefault();
-            console.log('clicked');
             var isValid = verifyRut(rutInput);
 
             if (isValid) {
@@ -134,10 +203,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById(targetForm).submit();
                 } else if (isValidEmail && isValidPhone && !isOneEmpty) {
                     document.getElementById(targetForm).submit();
+                } else if (isValidEmail && !isOneEmpty) {
+                    document.getElementById(targetForm).submit();
                 } else {
                     var messages = '';
-                    if (!isValidEmail) messages += '<p class="is-text has-text-danger">Email inválido</p>';
-                    if (!isValidPhone) messages += '<p class="is-text has-text-danger">Teléfono inválido</p>';
+                    if (!isValidEmail && isValidEmail !== undefined) messages += '<p class="is-text has-text-danger">Email inválido</p>';
+                    if (!isValidPhone && isValidPhone !== undefined) messages += '<p class="is-text has-text-danger">Teléfono inválido</p>';
                     if (isOneEmpty) messages += '<p class="is-text has-text-danger">Faltan campos por completar</p>';
                     document.getElementById('error').innerHTML = messages;
                 }

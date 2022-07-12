@@ -1,14 +1,23 @@
 
 <?php require_once __DIR__.'/modal-login.phtml'?>
-<section class="section is-flex is-vcentered is-100v-height">
+<section class="section is-flex is-100v-height">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let button = document.getElementById('buttonxd');
+            button.addEventListener('click', (e)=>{
+                e.preventDefault();
+            })
+        })
+    </script>
     <div class="container is-align-self-center is-justify-content-center">
         <div class="special-shadow-div p-3 is-450-width m-auto">
-            <form class="" method="POST" action="<?=BASE_URL?>/admins-login">
+            <form id="login-form" class="" method="POST" action="<?=BASE_URL?>/admins-login">
                 <div class="field">
                     <label class="label">Rut</label>
                     <div class="control">
-                        <input class="input" type="text" name="rut">
+                        <input id="rut-login" data-form="login-form" class="input" type="text" name="rut">
                     </div>
+                    <span id="error" class="is-block has-text-danger pt-1"></span>
                 </div>
 
                 <div class="field">
@@ -19,7 +28,7 @@
                 </div>
 
                 <div class="field">
-                    <input class="button is-success" type="submit" value="Ingresar">
+                    <button id="buttonxd" class="button is-success rut-btn-verify" data-target="rut-login">Ingresar</button>
                 </div>
             </form>
         </div>

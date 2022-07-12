@@ -57,4 +57,33 @@ class HandleController
             exit();
         }
     }
+
+
+    public function handleProfile()
+    {
+        if( isset($_SESSION['user']) ) {
+
+
+            switch ($_SESSION['user']['id_tipo']){
+                case 1:
+                    $controller = new EjecutivoMesaController();
+                    break;
+                case 2:
+                    $controller = new JefeMesaController();
+                    break;
+                case 3:
+                    $controller = new EjecutivoAreaController();
+                    break;
+                default:
+                    break;
+            }
+
+            $controller->showProfile();
+
+
+        }else {
+            header('Location:'.BASE_URL);
+            exit();
+        }
+    }
 }

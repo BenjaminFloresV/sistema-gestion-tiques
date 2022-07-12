@@ -8,6 +8,8 @@ use Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator;
 
 class Helpers
 {
+
+
     public static function showPre(mixed $data)
     {
         echo '<pre>';
@@ -95,7 +97,7 @@ class Helpers
     // This method is used to get object data if we need to update data or show all the data of certain entity.
     // options = id : int, join : bool, getObjectCategories: bool
     // object is an array: [ object, method, nameOfResults ]
-    public static function retrieveObjectData(string $action, array $object, array $options = null): array|null
+    public static function retrieveObjectData(string $action, array $object, array $options = null): array|bool|null
     {
         $result = null;
 
@@ -107,7 +109,7 @@ class Helpers
                 }else {
                     $result = $object[0]->$method($options['filterByAreaAndState']);
                 }
-            }else {
+            }else  {
                 $result = $object[0]->$method();
             }
 

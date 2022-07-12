@@ -38,6 +38,7 @@
                 <li><a href="<?=BASE_URL?>/admin-home/tipos-tique/" >Tipo Tiques</a> </li>
                 <li><a id="tipoArea" href="<?=BASE_URL?>/admin-home/areas/">Áreas</a></li>
                 <li><a href="<?=BASE_URL?>/admin-home/tiques/" >Tiques</a> </li>
+                <li><a href="<?=BASE_URL?>/admin-home/perfil/" >Ver Perfil</a> </li>
             </ul>
         </aside>
     </div>
@@ -45,6 +46,8 @@
       <div class="p-4 is-flex is-justify-content-center container" id="root">
           <?php if( isset($manageView) ): ?>
             <?php require_once __DIR__.'/'.$manageView.'.phtml'; ?>
+          <?php elseif( isset($profileView) ): ?>
+              <?php require_once __DIR__.'/../'.$profileView.'.phtml' ?>
           <?php else: ?>
             <?php require_once __DIR__.'/dashboard.phtml'; ?>
           <?php endif; ?>

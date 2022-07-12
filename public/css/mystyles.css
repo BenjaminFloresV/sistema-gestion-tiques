@@ -107,7 +107,7 @@
 }
 
 .is-100v-height {
-    height: 100vh;
+    height: calc(100vh - 53px);
 }
 
 .is-450-width {
@@ -220,6 +220,34 @@
 .icon-custom:hover {
     color: white;
     background: transparent !important;
+}
+
+
+.passwordInput{
+    margin-top: 5%;
+    text-align :center;
+}
+
+#change-pass-container {
+    display: none;
+}
+
+.displayBadge{
+    margin-top: 5%;
+    display: none;
+    text-align :center;
+}
+
+
+html, body {
+    min-height: 100vh;
+    background: #f6f6f6;
+    margin: 0;
+    overflow: auto;
+}
+
+.force-chart-full-width {
+    width: 80% !important;
 }
 
 

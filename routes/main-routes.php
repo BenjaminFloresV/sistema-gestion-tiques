@@ -7,10 +7,13 @@ use Pecee\SimpleRouter\SimpleRouter;
 SimpleRouter::get('/', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'index']);
 
 
-SimpleRouter::get('/admins-login', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'login']);
-SimpleRouter::get('/admin-home/cerrar', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'logout']);
-SimpleRouter::post('/admins-login', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'loginVerify']);
-SimpleRouter::get('/admin-home', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'adminHome']);
+SimpleRouter::get('/admins-login/', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'login']);
+SimpleRouter::get('/admin-home/cerrar/', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'logout']);
+SimpleRouter::post('/admins-login/', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'loginVerify']);
+SimpleRouter::get('/admin-home/', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'adminHome']);
+SimpleRouter::get('/admin-home/perfil/', [\SistemaTique\Mvc\Controllers\HandleController\HandleController::class, 'handleProfile']);
+
+SimpleRouter::post('/actualizar-password/', [\SistemaTique\Mvc\Controllers\Entities\UserController::class, 'changePassword']);
 
 // Usuarios
 SimpleRouter::get('/admin-home/usuarios/{action?}', [\SistemaTique\Mvc\Controllers\Roles\JefeMesaController::class, 'manageUsuarios']);

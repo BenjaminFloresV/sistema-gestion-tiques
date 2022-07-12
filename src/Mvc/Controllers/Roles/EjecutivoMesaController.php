@@ -40,6 +40,32 @@ class EjecutivoMesaController
 
     public function showHome()
     {
-        RenderView::render('admin-panel');
+
+        $tique = new Tique();
+        $stats = $tique->getCreationStatsByUser($_SESSION['user']['id_usuario']);
+
+        $totalTiques = 0;
+        $meses = [];
+        $data = [];
+
+        foreach ($stats as $stat) {
+            $totalTiques += $stat['cantidad'];
+            $meses[] = $stat['mes'];
+            $data[] = $stat['cantidad'];
+        }
+
+        $tiqueStats = ['totalTiques' => $totalTiques, 'meses' => $meses, 'data' => $data];
+
+        RenderView::render('admin-panel',[
+            'tiqueStats' => $tiqueStats
+        ]);
+    }
+
+    public function showProfile()
+    {
+        RenderView::render('admin-panel',[
+            'profileData' => $_SESSION['user'],
+            'profileView' => 'profile'
+        ]);
     }
 }

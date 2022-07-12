@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f9eefd0-34d6-4cf8-8358-588d5a694298" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/dashboard.phtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/validations/validate-pass.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Ejecutivo-de-Area/dashboard.phtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Ejecutivo-de-Mesa/dashboard.phtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mvc/Views/User/profile.phtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/validations/validations.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/validations/validations.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my_app.log" beforeDir="false" afterPath="$PROJECT_DIR$/my_app.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/mystyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/mystyles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/validations/validations.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/validations/validations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/main-routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/main-routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/Connection.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/Connection.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Helpers/Helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helpers/Helpers.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Middleware/RenderView.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Middleware/RenderView.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Controllers/Entities/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Controllers/Entities/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Controllers/HandleController/HandleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Controllers/HandleController/HandleController.php" afterDir="false" />
@@ -14,8 +22,14 @@
       <change beforePath="$PROJECT_DIR$/src/Mvc/Controllers/Roles/JefeMesaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Controllers/Roles/JefeMesaController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Models/Tique.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Models/Tique.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mvc/Views/User/Ejecutivo-de-Area/gestion.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Ejecutivo-de-Area/gestion.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mvc/Views/User/Ejecutivo-de-Mesa/gestion.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Ejecutivo-de-Mesa/gestion.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/Tiques/ver.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/Tiques/ver.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/Usuarios/crear.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/Usuarios/crear.phtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/gestion.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Views/User/Jefe-de-Mesa/gestion.phtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mvc/Views/User/layouts/header.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Views/User/layouts/header.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mvc/Views/User/login.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mvc/Views/User/login.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Models/TiqueTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/test/Models/TiqueTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,6 +156,8 @@
       <workItem from="1657232792361" duration="31915000" />
       <workItem from="1657310168674" duration="29136000" />
       <workItem from="1657396609708" duration="29633000" />
+      <workItem from="1657535018496" duration="1941000" />
+      <workItem from="1657573601213" duration="33084000" />
     </task>
     <servers />
   </component>

@@ -2,6 +2,7 @@
 
 /** @var $rolId */
 /** @var $manageView */
+/** @var $profileView */
 ?>
 
 <?php require_once __DIR__ . '../../messages-modal.phtml' ?>
@@ -12,8 +13,9 @@
                 Administración
             </p>
             <ul class="menu-list">
+                <li><a id="criticidad" href="<?=BASE_URL?>/admin-home/">Dashboard</a></li>
                 <li><a id="criticidad" href="<?=BASE_URL?>/admin-home/tiques/">Ingresar Tique</a></li>
-                <li><a href="<?=BASE_URL.'/admin-home/cerrar'?>">Cerrar Sesión</a></li>
+                <li><a id="criticidad" href="<?=BASE_URL?>/admin-home/perfil/">Ver Perfil</a></li>
             </ul>
         </aside>
     </div>
@@ -22,8 +24,10 @@
 
             <?php if( isset($manageView) ): ?>
                 <?php require_once __DIR__.'/'.$manageView.'.phtml'; ?>
+            <?php elseif( isset($profileView) ): ?>
+                <?php require_once __DIR__.'/../'.$profileView.'.phtml' ?>
             <?php else: ?>
-                <p class="has-text-black">Dashboard papu</p>
+                <?php require_once __DIR__.'/dashboard.phtml'; ?>
             <?php endif; ?>
 
         </div>

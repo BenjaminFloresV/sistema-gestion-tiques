@@ -36,6 +36,36 @@ class EjecutivoAreaController
 
     public function showHome()
     {
-        RenderView::render('admin-panel');
+        $tique = new Tique();
+        $tique->setIdArea($_SESSION['user']['id_area']);
+        $stats = $tique->getAvailableStats();
+
+        $totalTiques = 0;
+        $totalResolucion = 0;
+        foreach ($stats as $stat) {
+            $totalTiques += $stat['cantidad'];
+            if( $stat['nombre'] == 'A resolución' ) {
+                $totalResolucion =$stat['cantidad'];
+            }
+        }
+
+        $finishedTiques = $totalTiques - $totalResolucion;
+
+        $tiqueStats = ['totalTiques' => $totalTiques, 'availableTiques' => $totalResolucion, 'finishedTiques' => $finishedTiques];
+
+        RenderView::render('admin-panel', [
+            'tiqueStats' => $tiqueStats
+        ]);
     }
+
+    public function showProfile()
+    {
+        RenderView::render('admin-panel',[
+            'profileData' => $_SESSION['user'],
+            'profileView' => 'profile'
+        ]);
+    }
+
+
+
 }

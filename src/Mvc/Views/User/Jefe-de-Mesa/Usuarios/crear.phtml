@@ -8,25 +8,25 @@ $tiposUsuarios = $selectsData['tiposUsuarios'];
 
 ?>
 <div id="jefe-mesa-usuario-1" class="has-text-black is-full has-border p-4 is-bordered">
-    <form action="<?=BASE_URL?>/usuarios/crear" method="POST">
+    <form id="user-form" action="<?=BASE_URL?>/usuarios/crear" method="POST">
         <div class="field is-grouped">
             <div class="control">
                 <label class="label is-size-6">RUT</label>
-                <input type="text" class="input" name="rut" required/>
+                <input id="rut-3" type="text" class="input" name="rut" data-form="user-form" required/>
             </div>
             <div class="control">
                 <label class="label is-size-6">Correo</label>
-                <input type="email" class="input" name="correo"required/>
+                <input type="email" class="input email-inputs" name="correo"required/>
             </div>
         </div>
         <div class="field is-grouped">
             <div class="control">
                 <label class="label is-size-6">Nombre</label>
-                <input type="text" class="input" name="nombre" required/>
+                <input type="text" class="input prev-input" name="nombre" required/>
             </div>
             <div class="control">
                 <label class="label is-size-6">Apellido</label>
-                <input type="text" class="input" name="apellido" required/>
+                <input type="text" class="input prev-input" name="apellido" required/>
             </div>
         </div>
         <div class="field is-grouped is-center">
@@ -53,8 +53,11 @@ $tiposUsuarios = $selectsData['tiposUsuarios'];
         </div>
         <div class="field has-text-centered">
             <div class="control">
-                <button class="button is-success m-3 is-size-6">Ingresar</button>
+                <button class="button is-success m-3 is-size-6 rut-btn-verify" data-target="rut-3">Ingresar</button>
             </div>
+        </div>
+        <div>
+            <span id="error" class="has-text-danger"></span>
         </div>
 
     </form>

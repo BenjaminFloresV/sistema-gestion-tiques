@@ -23,6 +23,7 @@ class Connection
         try {
             self::$log->info('Connecting to Database');
             $result = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $result->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 
             self::$log->info('Database connection established');
 

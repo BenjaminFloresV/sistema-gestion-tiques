@@ -102,7 +102,7 @@ class User
                 'u.apellido', 'u.telefono','u.correo', 'u.rut', 'u.expiration_password', 'u.password',
                 'a.nombre AS nombreArea'
             );
-            $sql = "SELECT ".implode(",", $wantedData).", UNIX_TIMESTAMP(fecha_nacimiento) AS fechaNacimiento ";
+            $sql = "SELECT ".implode(",", $wantedData).", fecha_nacimiento AS fechaNacimiento ";
             $sql .= "FROM usuario u INNER JOIN area a ON a.id_area=u.id_area ";
             $sql .= "INNER JOIN tipo_usuario tu ON tu.id_tipo=u.id_tipo ";
             $sql .= "WHERE rut=:rut";
@@ -331,6 +331,41 @@ class User
         }
 
         return $result;
+    }
+
+    public function changePassword()
+    {
+
+        $result = false;
+        try{
+            $this->log->debug('Trying to update user system access');
+            $sql = "UPDATE usuario SET password=:password, expiration_password=:expiration_password WHERE rut=:rut";
+
+            $st = $this->conn->prepare($sql);
+
+            $st->bindValue(':rut', $this->rut, PDO::PARAM_STR);
+            $st->bindValue(':password', $this->password, PDO::PARAM_STR);
+            $st->bindValue(':expiration_password', null, PDO::PARAM_NULL);
+
+            $query = $st->execute();
+
+            if( $query ) {
+                if( $st->rowCount() !== 0 ){
+                    $result = true;
+                    $this->log->debug('User system access status changed successfully');
+                }
+            }else {
+                $this->log->debug('Failed to update User system access status');
+            }
+
+            $st->closeCursor();
+
+        }catch ( \Exception $exception ){
+            $this->log->error('Something went wrong while trying to change system access');
+        }
+
+        return $result;
+
     }
 
 

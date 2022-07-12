@@ -33,6 +33,11 @@ class Tique
         $this->conn = Connection::dbConnection();
     }
 
+    public function setIdArea( int $id )
+    {
+        $this->id_area = $id;
+    }
+
     public function setIdTique( int $id )
     {
         $this->id_tique = $id;
@@ -377,6 +382,7 @@ class Tique
 
     public function getAllFiltered(array $data, bool $includeClientInfo = null)
     {
+        $resultPerPage = ADMIN_ROWS_LIMIT;
         $result = false;
         try {
             $this->logger->debug('Trying to get tique filtered data');
@@ -451,6 +457,7 @@ class Tique
             $query = $st->execute();
 
             if( $query ) {
+                
                 $result = $st->fetchAll(PDO::FETCH_ASSOC);
                 $this->logger->debug('Tique data filtered was collected successfullly');
             }else {
@@ -558,4 +565,62 @@ class Tique
         return $result;
     }
 
+
+    public function getCreationStatsByUser( int $userId )
+    {
+        $result = false;
+        try {
+            $this->logger->debug('Trying to get Tique stats data');
+            $setLanguage = "SET lc_time_names = 'es_MX';";
+            $sql = "SELECT COUNT(*) as cantidad, MONTHNAME(fecha_creacion) as mes FROM `tique` "
+                ."WHERE id_usuario_crea=:id_user AND YEAR(fecha_creacion)= YEAR(CURDATE()) GROUP BY mes ORDER BY MONTH(fecha_creacion) ASC;";
+
+            $set = $this->conn->prepare($setLanguage);
+            $st = $this->conn->prepare($sql);
+            $st->bindValue(':id_user', $userId, PDO::PARAM_INT);
+
+            $set->execute();
+            $query = $st->execute();
+
+            if( $query ) {
+                $result = $st->fetchAll(PDO::FETCH_ASSOC);
+            }
+
+            $st->closeCursor();
+
+        } catch (\Exception $exception) {
+            $this->logger->error('Something went wrong while trying to get Tique stats data', array('exception' => $exception));
+        }
+
+        return $result;
+    }
+
+
+    public function getAvailableStats()
+    {
+        $result = false;
+        try {
+            $this->logger->debug('Trying to get Tique stats data');
+            $sql = "SELECT COUNT(*) as cantidad, et.nombre as nombre FROM `tique` t\n"
+
+                . "INNER JOIN estado_tique et ON t.id_estado=et.id_estado WHERE id_area=:id_area GROUP BY nombre;";
+
+
+            $st = $this->conn->prepare($sql);
+            $st->bindValue(':id_area', $this->id_area, PDO::PARAM_INT);
+
+            $query = $st->execute();
+
+            if( $query ) {
+                $result = $st->fetchAll(PDO::FETCH_ASSOC);
+            }
+
+            $st->closeCursor();
+
+        } catch ( \Exception $exception ) {
+            $this->logger->error('Something went wrong while trying to get Tique stats data', array('exception' => $exception));
+        }
+
+        return $result;
+    }
 }

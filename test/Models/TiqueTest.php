@@ -7,7 +7,7 @@ use SistemaTique\Mvc\Models\Tique;
 
 class TiqueTest extends TestCase
 {
-
+    /** @test  */
     public function create()
     {
         $tique = new Tique();
@@ -15,9 +15,10 @@ class TiqueTest extends TestCase
             'id_usuario_crea' => 1,
             'rut_cliente' => '13008100-2',
             'id_tipo' => 1,
-            'id_area' => 1,
+            'id_estado' => 1,
+            'id_area' => 2,
             'id_criticidad' => 1,
-            'fecha_creacion' => '2022-04-12',
+            'fecha_creacion' => '2022-06-12',
             'detalle_problema' => 'Cliente no tiene transformador de energía para su notebook',
             'detalle_servicio' => 'El servicio consta de proporcionar el transformador necesario y limpieza del aparato'
 
@@ -110,12 +111,25 @@ class TiqueTest extends TestCase
         $this->assertCount(3, $allData);
     }
 
-    /** @test  */
+
     public function getStates()
     {
         $tique = new Tique();
         $states = $tique->getStates();
 
         $this->assertEquals('array', gettype($states));
+    }
+
+
+    public function getCreationStatsByUser()
+    {
+        $logger = \SistemaTique\Helpers\NewLogger::newLogger('log');
+
+        $tique = new Tique();
+        $stats = $tique->getCreationStatsByUser(1);
+
+        $logger->debug('Data collected', array('data'=>$stats));
+        $this->assertCount(1, $stats);
+
     }
 }
