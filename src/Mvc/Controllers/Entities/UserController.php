@@ -114,7 +114,7 @@ class UserController
         if( isset($_POST) && !empty($_POST) ){
 
             $validData = FormVerifier::verifyInputs($_POST);
-            if( $validData && FormVerifier::verifyKeys(['nombre', 'rut', 'apellido', 'id_tipo', 'id_area', 'correo'], $_POST) ){
+            if( $validData && FormVerifier::verifyKeys(['nombre', 'rut', 'apellido', 'id_tipo', 'id_area', 'correo', 'fecha_nacimiento', 'telefono'], $_POST) ){
                 $newUser = new User();
                 $newUser->storeFormValues($_POST);
                 $temporalPassword = Helpers::generateRandomPassword();

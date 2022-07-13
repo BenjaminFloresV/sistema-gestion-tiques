@@ -108,6 +108,14 @@ class Tique
 
     public function getAll(): bool|array
     {
+        if (!isset ($_GET['page']) ) {
+            $_GET['page'] = 1;
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
+        $resultPerPage = ADMIN_ROWS_LIMIT;
+        $pageFirstResult = ($page-1) * $resultPerPage;
         $result = false;
         try {
             $this->logger->debug('Trying to get all Tiques');
@@ -127,14 +135,27 @@ class Tique
 
                 . "LEFT JOIN estado_tique et ON t.id_estado=et.id_estado\n"
 
-                . "WHERE t.id_usuario_cierra IS NULL OR t.id_usuario_cierra IS NOT NULL;";
+                . "WHERE t.id_usuario_cierra IS NULL OR t.id_usuario_cierra IS NOT NULL";
             $st = $this->conn->prepare($sql);
 
             $query = $st->execute();
 
             if( $query ) {
-                $this->logger->debug('Tiques data has been collected');
-                $result = $st->fetchAll(PDO::FETCH_ASSOC);
+                $numberOfRows = $st->rowCount();
+                if( $numberOfRows > 0 ) {
+                    // determine the total number of pages available
+                    $_SESSION['numberOfPage']= ceil($numberOfRows/ADMIN_ROWS_LIMIT);
+                    $st->closeCursor();
+
+                    $sql .= " LIMIT :pageFirstResult,:resultPerPage";
+                    $st = $this->conn->prepare($sql);
+                    $st->bindParam(':pageFirstResult',$pageFirstResult,PDO::PARAM_INT);
+                    $st->bindParam(':resultPerPage', $resultPerPage , PDO::PARAM_INT);
+
+                    $st->execute();
+
+                    $result = $st->fetchAll(PDO::FETCH_ASSOC);
+                }
             }else {
                 $this->logger->debug('Get all Tiques query has failed');
             }
@@ -382,7 +403,14 @@ class Tique
 
     public function getAllFiltered(array $data, bool $includeClientInfo = null)
     {
+        if (!isset ($_GET['page']) ) {
+            $_GET['page'] = 1;
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
         $resultPerPage = ADMIN_ROWS_LIMIT;
+        $pageFirstResult = ($page-1) * $resultPerPage;
         $result = false;
         try {
             $this->logger->debug('Trying to get tique filtered data');
@@ -457,9 +485,21 @@ class Tique
             $query = $st->execute();
 
             if( $query ) {
-                
-                $result = $st->fetchAll(PDO::FETCH_ASSOC);
-                $this->logger->debug('Tique data filtered was collected successfullly');
+                $numberOfRows = $st->rowCount();
+                if( $numberOfRows > 0 ) {
+                    // determine the total number of pages available
+                    $_SESSION['numberOfPage']= ceil($numberOfRows/ADMIN_ROWS_LIMIT);
+                    $st->closeCursor();
+
+                    $sql .= " LIMIT :pageFirstResult,:resultPerPage";
+                    $st = $this->conn->prepare($sql);
+                    $st->bindParam(':pageFirstResult',$pageFirstResult,PDO::PARAM_INT);
+                    $st->bindParam(':resultPerPage', $resultPerPage , PDO::PARAM_INT);
+
+                    $st->execute();
+
+                    $result = $st->fetchAll(PDO::FETCH_ASSOC);
+                }
             }else {
                 $this->logger->debug('Query has failed');
             }
@@ -489,7 +529,7 @@ class Tique
 
             . "LEFT JOIN area a ON t.id_area=a.id_area\n"
 
-            . "LEFT JOIN estado_tique et ON t.id_estado=et.id_estado\n";
+            . "LEFT JOIN estado_tique et ON t.id_estado=et.id_estado";
     }
 
     private function getSQLForGetAll2()

@@ -56,10 +56,12 @@ class User
         $result = false;
         try {
             $this->log->debug('Trying to store form values');
-            if( isset($data['rut'])) $this->rut = (string) $data['rut'];
-            if( isset($data['correo'])) $this->correo = (string) $data['correo'];
-            if( isset($data['nombre'])) $this->nombre = (string) $data['nombre'];
-            if( isset($data['apellido'])) $this->apellido = (string) $data['apellido'];
+            if( isset($data['rut'])) $this->rut = trim($data['rut']);
+            if( isset($data['correo'])) $this->correo = trim($data['correo']);
+            if( isset($data['fecha_nacimiento'])) $this->fecha_nacimiento = trim($data['fecha_nacimiento']);
+            if( isset($data['telefono'])) $this->telefono = (string) trim($data['telefono']);
+            if( isset($data['nombre'])) $this->nombre = trim($data['nombre']);
+            if( isset($data['apellido'])) $this->apellido = trim($data['apellido']);
             if( isset($data['id_tipo'])) $this->id_tipo = (int) $data['id_tipo'];
             if( isset($data['id_area'])) $this->id_area = (int) $data['id_area'];
 
@@ -132,6 +134,14 @@ class User
 
     public function getAll(): array|bool
     {
+        if (!isset ($_GET['page']) ) {
+            $_GET['page'] = 1;
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
+        $resultPerPage = ADMIN_ROWS_LIMIT;
+        $pageFirstResult = ($page-1) * $resultPerPage;
         $result = false;
         try {
 
@@ -144,9 +154,25 @@ class User
 
 
             if( $query ) {
+
+
+                $numberOfRows = $st->rowCount();
+                if( $numberOfRows > 0 ) {
+                    // determine the total number of pages available
+                    $_SESSION['numberOfPage']= ceil($numberOfRows/ADMIN_ROWS_LIMIT);
+                    $st->closeCursor();
+
+                    $sql .= " LIMIT :pageFirstResult,:resultPerPage";
+                    $st = $this->conn->prepare($sql);
+                    $st->bindParam(':pageFirstResult',$pageFirstResult,PDO::PARAM_INT);
+                    $st->bindParam(':resultPerPage', $resultPerPage , PDO::PARAM_INT);
+
+                    $st->execute();
+
+                    $result = $st->fetchAll(PDO::FETCH_ASSOC);
+                }
+
                 $this->log->info('Users data has been collected successfully.');
-                $result = $st->fetchAll(PDO::FETCH_ASSOC);
-                $this->log->info('This is the current data', array('data'=> $result));
             }
 
             $st->closeCursor();
@@ -192,8 +218,8 @@ class User
             $st->bindValue(':login_habilitado', $this->login_habilitado, PDO::PARAM_BOOL);
             $st->bindValue(':nombre', $this->nombre, PDO::PARAM_STR);
             $st->bindValue(':apellido', $this->apellido, PDO::PARAM_STR);
-            $st->bindValue(':telefono', null, PDO::PARAM_NULL);
-            $st->bindValue(':fecha_nacimiento', null, PDO::PARAM_NULL);
+            $st->bindValue(':telefono', $this->telefono, PDO::PARAM_STR);
+            $st->bindValue(':fecha_nacimiento', $this->fecha_nacimiento, PDO::PARAM_STR);
             $st->bindValue(':rut', $this->rut, PDO::PARAM_STR);
             $st->bindValue(':password', $this->password, PDO::PARAM_STR);
             $st->bindValue(':correo', $this->correo, PDO::PARAM_STR);
